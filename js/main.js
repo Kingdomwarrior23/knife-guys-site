@@ -6,9 +6,39 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // ── Loading Screen ──
-  const loader = document.querySelector('.loader');
+  const loader = document.querySelector('.loading-screen');
   if (loader) {
     setTimeout(() => loader.classList.add('hidden'), 2200);
+  }
+
+  // ── Custom Cursor ──
+  const cursorDot = document.getElementById('cursorDot');
+  const cursorRing = document.getElementById('cursorRing');
+  if (cursorDot && cursorRing && window.matchMedia('(hover: hover)').matches) {
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.left = mouseX + 'px';
+      cursorDot.style.top = mouseY + 'px';
+    });
+    
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+      cursorRing.style.left = ringX + 'px';
+      cursorRing.style.top = ringY + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+    
+    // Hover state on interactive elements
+    document.querySelectorAll('a, button, .btn, [role="button"]').forEach(el => {
+      el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+    });
   }
 
   // ── Navigation Scroll Effect ──
@@ -23,6 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = (window.scrollY / docHeight) * 100;
       scrollProgress.style.width = progress + '%';
+    }
+    // Also handle ID-based scroll progress
+    const scrollProgressById = document.getElementById('scrollProgress');
+    if (scrollProgressById) {
+      const docHeight2 = document.documentElement.scrollHeight - window.innerHeight;
+      const progress2 = (window.scrollY / docHeight2) * 100;
+      scrollProgressById.style.width = progress2 + '%';
     }
   });
 
@@ -306,5 +343,29 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     `;
     document.head.appendChild(style);
+  }
+
+  // ── Lenis Smooth Scroll ──
+  if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      smoothTouch: false,
+      touchMultiplier: 2
+    });
+    
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+    
+    // Sync GSAP ScrollTrigger with Lenis
+    if (typeof ScrollTrigger !== 'undefined') {
+      lenis.on('scroll', ScrollTrigger.update);
+    }
   }
 });

@@ -14,7 +14,7 @@
   <meta property="og:description" content="20+ years of knife expertise. Premium brands, custom engraving, and a blade for every purpose. Visit us in Emerald, TX.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://lubbockknifeguys.com/">
-  <meta property="og:image" content="images/hero_damascus.jpg">
+  <meta property="og:image" content="images/hero-knives-cinematic.png">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,6 +24,7 @@
   <!-- GSAP -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js" defer></script>
   
   <!-- Styles -->
   <link rel="stylesheet" href="css/style.css">
@@ -55,20 +56,24 @@
     ],
     "openingHours": ["Mo-Sa 10:00-19:00"],
     "priceRange": "$$",
-    "image": "images/hero_damascus.jpg"
+    "image": "images/hero-knives-cinematic.png"
   }
   </script>
 </head>
 <body>
 
 <!-- Loading Screen -->
-<div class="loader" id="loader">
-  <div class="loader-logo">THE <span>KNIFE</span> GUYS</div>
-  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+<div class="loading-screen" id="loadingScreen">
+  <div class="loading-logo">THE KNIFE GUYS</div>
+  <div class="loading-bar"><div class="loading-bar-fill"></div></div>
 </div>
 
+<!-- Custom Cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
 <!-- Scroll Progress -->
-<div class="scroll-progress"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
 
 <!-- Navigation -->
 <nav class="nav">
@@ -89,10 +94,18 @@
 
 <!-- Hero with Ken Burns Effect -->
 <section class="hero">
-  <div class="hero-bg" style="background-image: url('images/hero_damascus.jpg')"></div>
+  <div class="hero-bg" style="background-image: url('images/hero-knives-cinematic.png')"></div>
   <div class="hero-overlay"></div>
   <div class="hero-vignette"></div>
   <div class="light-rays"></div>
+  <div class="blade-reflection"></div>
+  <div class="spark-container">
+    <div class="spark"></div><div class="spark"></div><div class="spark"></div>
+    <div class="spark"></div><div class="spark"></div><div class="spark"></div>
+    <div class="spark"></div><div class="spark"></div><div class="spark"></div>
+    <div class="spark"></div>
+  </div>
+  <div class="heat-shimmer"></div>
   <div class="hero-content">
     <div class="hero-badge">Est. 2003 · Emerald, Texas</div>
     <h1 class="hero-title">Put It In Your<br><span class="gold">Pocket</span><br>See How It Feels</h1>
@@ -164,8 +177,8 @@
   
   <div class="product-grid gsap-stagger">
     <div class="product-card stagger-item gsap-stagger-item">
-      <div class="product-card-img" style="background-image: url('images/hero_damascus.jpg')">
-        <div class="ken-burns-inner" style="background-image: url('images/hero_damascus.jpg')"></div>
+      <div class="product-card-img" style="background-image: url('images/hero-knives-cinematic.png')">
+        <div class="ken-burns-inner" style="background-image: url('images/hero-knives-cinematic.png')"></div>
       </div>
       <div class="product-card-body">
         <div class="product-card-label">Premium Collection</div>
@@ -177,8 +190,8 @@
     </div>
     
     <div class="product-card stagger-item gsap-stagger-item">
-      <div class="product-card-img" style="background-image: url('images/hero-kitchen.png')">
-        <div class="ken-burns-inner" style="background-image: url('images/hero-kitchen.png')"></div>
+      <div class="product-card-img" style="background-image: url('images/hero-kitchen-cinematic.png')">
+        <div class="ken-burns-inner" style="background-image: url('images/hero-kitchen-cinematic.png')"></div>
       </div>
       <div class="product-card-body">
         <div class="product-card-label">Kitchen</div>
@@ -190,8 +203,8 @@
     </div>
     
     <div class="product-card stagger-item gsap-stagger-item">
-      <div class="product-card-img" style="background-image: url('images/hero-swords.png')">
-        <div class="ken-burns-inner" style="background-image: url('images/hero-swords.png')"></div>
+      <div class="product-card-img" style="background-image: url('images/hero-swords-cinematic.png')">
+        <div class="ken-burns-inner" style="background-image: url('images/hero-swords-cinematic.png')"></div>
       </div>
       <div class="product-card-body">
         <div class="product-card-label">Battle Ready</div>
@@ -203,8 +216,8 @@
     </div>
     
     <div class="product-card stagger-item gsap-stagger-item">
-      <div class="product-card-img" style="background-image: url('images/hero-engraving.png')">
-        <div class="ken-burns-inner" style="background-image: url('images/hero-engraving.png')"></div>
+      <div class="product-card-img" style="background-image: url('images/hero-engraving-cinematic.png')">
+        <div class="ken-burns-inner" style="background-image: url('images/hero-engraving-cinematic.png')"></div>
       </div>
       <div class="product-card-body">
         <div class="product-card-label">Custom</div>
@@ -247,7 +260,7 @@
 
 <!-- CTA Banner with Ken Burns -->
 <section class="cta-banner">
-  <div class="cta-banner-bg" style="background-image: url('images/hero-knives.png')"></div>
+  <div class="cta-banner-bg" style="background-image: url('images/hero-knives-cinematic.png')"></div>
   <div class="cta-banner-content gsap-reveal">
     <h2 class="cta-banner-title">The Right Person.<br><span style="color: var(--accent-gold)">The Right Blade.</span></h2>
     <p class="cta-banner-subtitle">Whether it's for the kitchen, the trail, or the display case — we'll help you find it.</p>
@@ -362,7 +375,7 @@
 
 <!-- Final CTA -->
 <section class="cta-banner">
-  <div class="cta-banner-bg" style="background-image: url('images/hero_engraving.jpg')"></div>
+  <div class="cta-banner-bg" style="background-image: url('images/hero-engraving-cinematic.png')"></div>
   <div class="cta-banner-content gsap-reveal">
     <h2 class="cta-banner-title">Ready To Find<br><span style="color: var(--accent-gold)">Your Blade?</span></h2>
     <p class="cta-banner-subtitle">Come see us. We've been doing this for 20+ years, and we're just getting started.</p>
