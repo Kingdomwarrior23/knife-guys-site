@@ -224,7 +224,7 @@ img { max-width: 100%; display: block; }
   position: absolute;
   width: 3px;
   height: 3px;
-  background: radial-gradient(circle, #1565c0 0%, #0d47a1 50%, transparent 70%);
+  background: radial-gradient(circle, var(--accent-blue) 0%, var(--accent-blue-dim) 50%, transparent 70%);
   border-radius: 50%;
   animation: sparkFloat 8s ease-in-out infinite;
   opacity: 0;
@@ -399,7 +399,7 @@ img { max-width: 100%; display: block; }
   top: 0;
   left: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--accent-red), #1565c0);
+  background: linear-gradient(90deg, var(--accent-red), var(--accent-blue));
   z-index: 9999;
   transition: width 0.1s linear;
   box-shadow: 0 0 10px rgba(201, 169, 110, 0.5);
@@ -881,13 +881,7 @@ img { max-width: 100%; display: block; }
 @media (max-width: 600px) {
   .footer-grid { grid-template-columns: 1fr; }
 }
-.footer-brand {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  letter-spacing: 3px;
-  margin-bottom: 1rem;
-}
-.footer-brand span { color: var(--accent-red); }
+/* Footer logo handled via inline img tag */
 .footer-desc {
   color: var(--text-secondary);
   font-size: 0.9rem;
