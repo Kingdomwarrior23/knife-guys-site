@@ -5,19 +5,20 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* ── CSS Variables ── */
+/* ── CSS Variables (Official Brand Colors) ── */
 :root {
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #111111;
-  --bg-card: #1a1a1a;
-  --text-primary: #f5f0e8;
-  --text-secondary: #a09882;
-  --accent-red: #d32f2f;
-  --accent-red-dim: #b71c1c;
-  --accent-blue: #1565c0;
-  --accent-blue-dim: #0d47a1;
-  --accent-silver: #c0c0c0;
-  --border-subtle: rgba(211, 47, 47, 0.15);
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-card: #141414;
+  --text-primary: #f0f0f0;
+  --text-secondary: #c0c0c0;
+  --accent-red: #ff0000;
+  --accent-red-dim: #cc0000;
+  --accent-blue: #0040ff;
+  --accent-blue-dim: #0030cc;
+  --accent-silver: #d0d0d0;
+  --accent-brown: #602010;
+  --border-subtle: rgba(255, 0, 0, 0.15);
   --font-display: 'Bebas Neue', sans-serif;
   --font-body: 'Inter', sans-serif;
   --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
