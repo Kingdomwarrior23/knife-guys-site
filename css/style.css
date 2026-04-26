@@ -112,6 +112,7 @@ img { max-width: 100%; display: block; }
 .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--text-primary); margin: 5px 0; transition: all 0.3s; }
 
 @media (max-width: 900px) {
+  .nav-logo img { height: 60px !important; }
   .nav-toggle { display: block; }
   .nav-links {
     position: fixed;
@@ -1198,4 +1199,150 @@ img { max-width: 100%; display: block; }
   font-size: 0.75rem;
   letter-spacing: 2px;
   text-transform: uppercase;
+}
+
+
+/* ═══════════════════════════════════════════════
+   KNIFE & BLADE SCROLL ANIMATIONS
+   ═══════════════════════════════════════════════ */
+
+/* ── Scrolling Blade Strip ── */
+.blade-strip {
+    position: relative;
+    overflow: hidden;
+    padding: 25px 0;
+    background: linear-gradient(180deg, transparent, rgba(255,0,0,0.02), transparent);
+    border-top: 1px solid rgba(255,0,0,0.1);
+    border-bottom: 1px solid rgba(255,0,0,0.1);
+}
+.blade-strip-inner {
+    display: flex;
+    gap: 50px;
+    animation: scrollBlades 25s linear infinite;
+    width: max-content;
+}
+.blade-strip-inner:hover { animation-play-state: paused; }
+@keyframes scrollBlades {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+.blade-icon {
+    flex-shrink: 0;
+    width: 70px; height: 70px;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0.3;
+    transition: opacity 0.3s, transform 0.3s;
+}
+.blade-icon:hover { opacity: 0.9; transform: scale(1.3) rotate(8deg); }
+.blade-icon svg {
+    width: 50px; height: 50px;
+    fill: var(--accent-red);
+    filter: drop-shadow(0 0 8px rgba(255,0,0,0.3));
+}
+
+/* ── Hero Knife Silhouettes ── */
+.knife-showcase {
+    position: absolute; inset: 0; z-index: 2;
+    overflow: hidden; pointer-events: none;
+}
+.knife-float {
+    position: absolute;
+    opacity: 0;
+    animation: knifeFloat 10s ease-in-out infinite;
+}
+.knife-float svg {
+    width: 100%; height: 100%;
+    fill: rgba(255,0,0,0.04);
+    filter: drop-shadow(0 0 30px rgba(255,0,0,0.08));
+}
+.knife-float:nth-child(1) { top: 8%; left: 3%; width: 220px; height: 220px; animation-delay: 0s; }
+.knife-float:nth-child(2) { top: 55%; right: 5%; width: 180px; height: 180px; animation-delay: 2.5s; }
+.knife-float:nth-child(3) { bottom: 20%; left: 12%; width: 160px; height: 160px; animation-delay: 5s; }
+.knife-float:nth-child(4) { top: 25%; right: 18%; width: 140px; height: 140px; animation-delay: 7.5s; }
+.knife-float:nth-child(5) { bottom: 35%; right: 30%; width: 120px; height: 120px; animation-delay: 3s; }
+.knife-float:nth-child(6) { top: 40%; left: 25%; width: 100px; height: 100px; animation-delay: 6s; }
+
+@keyframes knifeFloat {
+    0%, 100% { opacity: 0; transform: translateY(30px) rotate(var(--rot, 0deg)) scale(0.9); }
+    15%, 85% { opacity: 1; }
+    50% { transform: translateY(-25px) rotate(var(--rot, 0deg)) scale(1.05); }
+}
+
+/* ── Blade Divider ── */
+.blade-divider {
+    position: relative;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
+    margin: 0;
+    overflow: visible;
+}
+.blade-divider::before {
+    content: '';
+    position: absolute;
+    top: -8px; left: 0;
+    width: 50px; height: 18px;
+    background: var(--accent-red);
+    clip-path: polygon(0 50%, 100% 0, 100% 100%);
+    animation: bladeSlide 5s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px rgba(255,0,0,0.5));
+}
+@keyframes bladeSlide {
+    0% { left: -50px; }
+    50% { left: calc(100% - 50px); }
+    100% { left: -50px; }
+}
+
+/* ── Rotating Blade Wheels ── */
+.blade-wheel {
+    position: absolute;
+    width: 600px; height: 600px;
+    opacity: 0.03;
+    animation: rotateWheel 40s linear infinite;
+    pointer-events: none; z-index: 0;
+}
+.blade-wheel svg { width: 100%; height: 100%; fill: var(--accent-red); }
+@keyframes rotateWheel { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.blade-wheel.pos-tr { top: -150px; right: -150px; }
+.blade-wheel.pos-bl { bottom: -150px; left: -150px; animation-direction: reverse; }
+
+/* ── Animated Blade Lines ── */
+.blade-lines {
+    position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none;
+}
+.blade-lines span {
+    position: absolute; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,0,0,0.12), transparent);
+    animation: bladeLine 8s ease-in-out infinite;
+}
+@keyframes bladeLine {
+    0%, 100% { opacity: 0; width: 0; left: var(--s, 0%); }
+    50% { opacity: 1; width: 35%; left: var(--m, 30%); }
+}
+.blade-lines span:nth-child(1) { top: 15%; --s: 0%; --m: 25%; animation-delay: 0s; }
+.blade-lines span:nth-child(2) { top: 35%; --s: 55%; --m: 15%; animation-delay: 2s; }
+.blade-lines span:nth-child(3) { top: 55%; --s: 10%; --m: 45%; animation-delay: 4s; }
+.blade-lines span:nth-child(4) { top: 75%; --s: 35%; --m: 5%; animation-delay: 6s; }
+.blade-lines span:nth-child(5) { top: 90%; --s: 20%; --m: 55%; animation-delay: 3s; }
+
+/* ── Enhanced sparks with red tint ── */
+.spark {
+    background: radial-gradient(circle, var(--accent-red) 0%, var(--accent-red-dim) 50%, transparent 70%) !important;
+}
+
+/* ── Section Shimmer ── */
+.section-shimmer {
+    position: relative; overflow: hidden;
+}
+.section-shimmer::after {
+    content: '';
+    position: absolute; top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,0,0,0.02), transparent);
+    animation: shimmer 10s ease-in-out infinite;
+    pointer-events: none;
+}
+@keyframes shimmer {
+    0% { left: -100%; }
+    50% { left: 100%; }
+    100% { left: 100%; }
 }
