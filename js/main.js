@@ -41,6 +41,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ── Scroll-Frame Blade Animation ──
+  const TOTAL_FRAMES = 97;
+  const heroSection = document.querySelector('.hero');
+  const heroFrame = document.getElementById('heroFrame');
+  const scrollHint = document.getElementById('scrollHint');
+
+  if (heroSection && heroFrame) {
+    // Preload all frames
+    const frameCache = [];
+    for (let i = 1; i <= TOTAL_FRAMES; i++) {
+      const img = new Image();
+      img.src = `frames/f_${String(i).padStart(4, '0')}.jpg`;
+      frameCache.push(img);
+    }
+
+    // Update frame on scroll (works with or without Lenis)
+    function updateHeroFrame() {
+      const rect = heroSection.getBoundingClientRect();
+      const heroH = heroSection.offsetHeight - window.innerHeight;
+      const raw = -rect.top / heroH;
+      const p = Math.min(1, Math.max(0, raw));
+
+      // Update frame
+      const idx = Math.min(TOTAL_FRAMES - 1, Math.floor(p * TOTAL_FRAMES));
+      if (frameCache[idx] && frameCache[idx].complete) {
+        heroFrame.src = frameCache[idx].src;
+      }
+
+      // Fade scroll hint
+      if (scrollHint) {
+        scrollHint.style.opacity = Math.max(0, 1 - p * 5);
+      }
+    }
+
+    window.addEventListener('scroll', updateHeroFrame, { passive: true });
+    // Initial call
+    updateHeroFrame();
+  }
+
   // ── Navigation Scroll Effect ──
   const nav = document.querySelector('.nav');
   const scrollProgress = document.querySelector('.scroll-progress');
@@ -275,20 +314,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // ── GSAP ScrollTrigger (if loaded) ──
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
-
-    // Parallax on hero backgrounds
-    gsap.utils.toArray('.hero-bg').forEach(bg => {
-      gsap.to(bg, {
-        yPercent: 15,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: bg.parentElement,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true
-        }
-      });
-    });
 
     // Section reveals with GSAP
     gsap.utils.toArray('.gsap-reveal').forEach(el => {
