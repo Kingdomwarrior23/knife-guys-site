@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Knife Guys — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --bg-card: #141414;
+      --bg-hover: #1a1a1a;
+      --bg-input: #1e1e1e;
+      --border: #2a2a2a;
+      --text: #e8e8e8;
+      --text-dim: #888;
+      --gold: #d4a853;
+      --red: #c0392b;
+      --green: #27ae60;
+      --blue: #3498db;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Top Nav */
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px; color: var(--gold);
+      letter-spacing: 2px; white-space: nowrap;
+    }
+    .topbar-right { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+    .topbar-btn {
+      background: var(--bg-card); border: 1px solid var(--border);
+      color: var(--text); padding: 8px 14px; border-radius: var(--radius-sm);
+      font-size: 13px; cursor: pointer; transition: all 0.2s;
+    }
+    .topbar-btn:hover { background: var(--bg-hover); border-color: var(--gold); }
+    .topbar-btn.primary { background: var(--gold); color: #000; border-color: var(--gold); font-weight: 600; }
+    .topbar-btn.primary:hover { opacity: 0.9; }
+    .save-indicator {
+      font-size: 12px; color: var(--green);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .save-indicator.show { opacity: 1; }
+
+    /* Mobile Nav Tabs */
+    .nav-tabs {
+      display: flex; overflow-x: auto; gap: 0;
+      background: var(--bg-card); border-bottom: 1px solid var(--border);
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .nav-tab {
+      flex: 0 0 auto;
+      padding: 14px 20px;
+      font-size: 13px; font-weight: 500;
+      color: var(--text-dim);
+      border: none; background: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer; white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .nav-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .nav-tab:hover { color: var(--text); }
+
+    /* Main Content */
+    .main { padding: 16px; max-width: 900px; margin: 0 auto; }
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .card-title {
+      font-size: 16px; font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .card-desc {
+      font-size: 13px; color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+
+    /* Form Elements */
+    label {
+      display: block; font-size: 12px; font-weight: 500;
+      color: var(--text-dim); margin-bottom: 6px;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    input[type="text"], input[type="url"], textarea, select {
+      width: 100%; padding: 12px 14px;
+      background: var(--bg-input); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text);
+      font-size: 14px; font-family: inherit;
+      transition: border-color 0.2s;
+      margin-bottom: 14px;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none; border-color: var(--gold);
+    }
+    textarea { resize: vertical; min-height: 80px; }
+    select { cursor: pointer; }
+
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 500px) { .field-row { grid-template-columns: 1fr; } }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 10px 20px; border-radius: var(--radius-sm);
+      font-size: 14px; font-weight: 500; cursor: pointer;
+      border: 1px solid var(--border); background: var(--bg-card);
+      color: var(--text); transition: all 0.2s;
+    }
+    .btn:hover { background: var(--bg-hover); }
+    .btn-gold { background: var(--gold); color: #000; border-color: var(--gold); }
+    .btn-gold:hover { opacity: 0.85; }
+    .btn-red { background: var(--red); color: #fff; border-color: var(--red); }
+    .btn-red:hover { opacity: 0.85; }
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .btn-block { width: 100%; }
+
+    /* Media Grid */
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .media-item {
+      position: relative;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 2px solid transparent;
+      cursor: pointer;
+      aspect-ratio: 1;
+      background: var(--bg-input);
+      transition: border-color 0.2s;
+    }
+    .media-item:hover { border-color: var(--gold); }
+    .media-item.selected { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(212,168,83,0.3); }
+    .media-item img, .media-item video {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .media-item-badge {
+      position: absolute; top: 6px; left: 6px;
+      background: rgba(0,0,0,0.7); color: #fff;
+      font-size: 10px; padding: 2px 6px;
+      border-radius: 4px; text-transform: uppercase;
+    }
+    .media-item-delete {
+      position: absolute; top: 6px; right: 6px;
+      background: rgba(192,57,43,0.9); color: #fff;
+      border: none; border-radius: 50%;
+      width: 24px; height: 24px; font-size: 14px;
+      cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .media-item:hover .media-item-delete { opacity: 1; }
+    .media-item-name {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      padding: 20px 8px 6px;
+      font-size: 11px; color: #ccc;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    /* Drop Zone */
+    .dropzone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 40px 20px;
+      text-align: center;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .dropzone.dragover {
+      border-color: var(--gold);
+      background: rgba(212,168,83,0.05);
+    }
+    .dropzone-icon { font-size: 40px; margin-bottom: 8px; }
+    .dropzone-text { font-size: 14px; color: var(--text-dim); }
+    .dropzone-text strong { color: var(--gold); }
+    .dropzone input { display: none; }
+
+    /* Preview */
+    .preview-frame {
+      width: 100%; border: none;
+      border-radius: var(--radius);
+      background: #fff;
+      min-height: 500px;
+    }
+    .preview-toggle {
+      display: flex; gap: 8px; margin-bottom: 12px;
+    }
+    .preview-toggle .btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 80px; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--bg-card); border: 1px solid var(--gold);
+      color: var(--text); padding: 12px 24px;
+      border-radius: var(--radius); font-size: 14px;
+      opacity: 0; transition: all 0.3s; z-index: 1000;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* Media Picker Modal */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.8); z-index: 200;
+      align-items: flex-end; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius) var(--radius) 0 0;
+      width: 100%; max-width: 600px;
+      max-height: 80vh; overflow-y: auto;
+      padding: 20px;
+    }
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .modal-title { font-size: 18px; font-weight: 600; }
+    .modal-close {
+      background: none; border: none; color: var(--text-dim);
+      font-size: 24px; cursor: pointer;
+    }
+
+    /* Product Cards in editor */
+    .product-editor {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      margin-bottom: 12px;
+      background: var(--bg);
+    }
+    .product-editor-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .product-editor-title { font-weight: 600; font-size: 14px; }
+    .product-thumb {
+      width: 60px; height: 60px; border-radius: 8px;
+      object-fit: cover; border: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    /* FAQ editor */
+    .faq-editor {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      margin-bottom: 12px;
+      background: var(--bg);
+    }
+
+    /* Stats bar */
+    .stats-bar {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px; margin-bottom: 20px;
+    }
+    .stat-box {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 16px;
+      text-align: center;
+    }
+    .stat-box-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px; color: var(--gold);
+    }
+    .stat-box-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; }
+
+    /* Quick Actions */
+    .quick-actions {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    @media (max-width: 500px) { .quick-actions { grid-template-columns: 1fr; } }
+    .quick-action {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+      cursor: pointer; transition: all 0.2s; text-align: center;
+    }
+    .quick-action:hover { border-color: var(--gold); background: var(--bg-hover); }
+    .quick-action-icon { font-size: 32px; margin-bottom: 8px; }
+    .quick-action-title { font-weight: 600; font-size: 14px; }
+    .quick-action-desc { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="topbar">
+  <div class="topbar-logo">🔪 KNIFE GUYS</div>
+  <div class="topbar-right">
+    <span class="save-indicator" id="saveIndicator">✓ Saved</span>
+    <button class="topbar-btn" onclick="exportData()">📥 Export</button>
+    <button class="topbar-btn primary" onclick="saveAll()">💾 Save</button>
+  </div>
+</div>
+
+<!-- Nav Tabs -->
+<div class="nav-tabs" id="navTabs">
+  <button class="nav-tab active" data-page="dashboard">🏠 Home</button>
+  <button class="nav-tab" data-page="media">📸 Media</button>
+  <button class="nav-tab" data-page="hero">🎯 Hero</button>
+  <button class="nav-tab" data-page="products">🗡️ Products</button>
+  <button class="nav-tab" data-page="content">📝 Content</button>
+  <button class="nav-tab" data-page="preview">👁️ Preview</button>
+</div>
+
+<div class="main">
+
+  <!-- ========== DASHBOARD PAGE ========== -->
+  <div class="page active" id="page-dashboard">
+    <div class="stats-bar">
+      <div class="stat-box">
+        <div class="stat-box-number" id="statMedia">0</div>
+        <div class="stat-box-label">Media Files</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-number" id="statProducts">4</div>
+        <div class="stat-box-label">Products</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-number" id="statTestimonials">3</div>
+        <div class="stat-box-label">Reviews</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-number" id="statLastSaved">—</div>
+        <div class="stat-box-label">Last Saved</div>
+      </div>
+    </div>
+
+    <h2 style="font-size:18px; margin-bottom:16px;">Quick Actions</h2>
+    <div class="quick-actions">
+      <div class="quick-action" onclick="switchPage('hero')">
+        <div class="quick-action-icon">🎯</div>
+        <div class="quick-action-title">Edit Hero</div>
+        <div class="quick-action-desc">Change headline, video, or image</div>
+      </div>
+      <div class="quick-action" onclick="switchPage('media')">
+        <div class="quick-action-icon">📸</div>
+        <div class="quick-action-title">Upload Media</div>
+        <div class="quick-action-desc">Add photos & videos</div>
+      </div>
+      <div class="quick-action" onclick="switchPage('products')">
+        <div class="quick-action-icon">🗡️</div>
+        <div class="quick-action-title">Edit Products</div>
+        <div class="quick-action-desc">Update featured blades</div>
+      </div>
+      <div class="quick-action" onclick="switchPage('preview')">
+        <div class="quick-action-icon">👁️</div>
+        <div class="quick-action-title">Preview Site</div>
+        <div class="quick-action-desc">See how it looks live</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <div class="card-title">📱 How To Use</div>
+      <div class="card-desc">
+        <strong>1.</strong> Go to <strong>Media</strong> → upload your photos & videos<br>
+        <strong>2.</strong> Go to <strong>Hero</strong> → pick a video/image as background<br>
+        <strong>3.</strong> Edit text, products, etc.<br>
+        <strong>4.</strong> Hit <strong>💾 Save</strong> → then tell me "deploy knife guys"<br><br>
+        I'll push it live to the website automatically.
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MEDIA PAGE ========== -->
+  <div class="page" id="page-media">
+    <div class="card">
+      <div class="card-title">📸 Media Library</div>
+      <div class="card-desc">Upload images and videos. Drag & drop or tap to browse.</div>
+      
+      <div class="dropzone" id="dropzone">
+        <div class="dropzone-icon">📁</div>
+        <div class="dropzone-text">
+          <strong>Drop files here</strong> or tap to browse<br>
+          <span style="font-size:12px;">Images: JPG, PNG, WebP · Videos: MP4, WebM</span>
+        </div>
+        <input type="file" id="fileInput" multiple accept="image/*,video/*">
+      </div>
+
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-top:16px; margin-bottom:8px;">
+        <span style="font-size:13px; color:var(--text-dim);" id="mediaCount">0 files</span>
+        <button class="btn btn-sm btn-red" onclick="clearAllMedia()">Clear All</button>
+      </div>
+      
+      <div class="media-grid" id="mediaGrid"></div>
+    </div>
+  </div>
+
+  <!-- ========== HERO PAGE ========== -->
+  <div class="page" id="page-hero">
+    <div class="card">
+      <div class="card-title">🎯 Hero Section</div>
+      <div class="card-desc">The big first thing people see. Make it count.</div>
+
+      <label>Background Type</label>
+      <select id="heroBgType">
+        <option value="animation">Scroll Animation (current)</option>
+        <option value="video">Video Background</option>
+        <option value="image">Static Image</option>
+      </select>
+
+      <div id="heroVideoPicker" style="display:none;">
+        <label>Hero Video</label>
+        <div style="display:flex; gap:8px; align-items:center; margin-bottom:14px;">
+          <img id="heroVideoThumb" src="" style="width:80px;height:60px;border-radius:8px;object-fit:cover;border:1px solid var(--border);display:none;">
+          <button class="btn btn-sm" onclick="openMediaPicker('heroVideo')">Choose Video</button>
+          <span id="heroVideoName" style="font-size:12px;color:var(--text-dim);">None selected</span>
+        </div>
+      </div>
+
+      <div id="heroImagePicker" style="display:none;">
+        <label>Hero Image</label>
+        <div style="display:flex; gap:8px; align-items:center; margin-bottom:14px;">
+          <img id="heroImageThumb" src="" style="width:80px;height:60px;border-radius:8px;object-fit:cover;border:1px solid var(--border);display:none;">
+          <button class="btn btn-sm" onclick="openMediaPicker('heroImage')">Choose Image</button>
+          <span id="heroImageName" style="font-size:12px;color:var(--text-dim);">None selected</span>
+        </div>
+      </div>
+
+      <label>Badge Text</label>
+      <input type="text" id="heroBadge" value="Est. 2003 · Emerald, Texas" placeholder="Small text above headline">
+
+      <label>Headline (use &lt;br&gt; for line breaks)</label>
+      <textarea id="heroTitle" rows="3" placeholder="Main headline">Put It In Your<br><span class="gold">Pocket</span><br>See How It Feels</textarea>
+
+      <label>Subtitle</label>
+      <textarea id="heroSubtitle" rows="2" placeholder="Supporting text">Premium knives, swords, and custom engraving. Over 20 years of helping you find the perfect blade — for any purpose, any budget.</textarea>
+
+      <div class="field-row">
+        <div>
+          <label>Button 1 Text</label>
+          <input type="text" id="heroBtn1Text" value="Browse Collection">
+        </div>
+        <div>
+          <label>Button 1 Link</label>
+          <input type="text" id="heroBtn1Link" value="knives.html">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label>Button 2 Text</label>
+          <input type="text" id="heroBtn2Text" value="Visit Us">
+        </div>
+        <div>
+          <label>Button 2 Link</label>
+          <input type="text" id="heroBtn2Link" value="contact.html">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== PRODUCTS PAGE ========== -->
+  <div class="page" id="page-products">
+    <div class="card">
+      <div class="card-title">🗡️ Featured Products</div>
+      <div class="card-desc">The 4 product cards on the homepage.</div>
+      <div id="productsList"></div>
+    </div>
+  </div>
+
+  <!-- ========== CONTENT PAGE ========== -->
+  <div class="page" id="page-content">
+    <div class="card">
+      <div class="card-title">📝 About Section</div>
+      <label>Section Title</label>
+      <input type="text" id="aboutTitle" value="More Than A Store">
+      <label>Section Text</label>
+      <textarea id="aboutText" rows="3">For over 20 years, we've been the Panhandle's destination for premium blades. Whether you need a hunting companion, a kitchen workhorse, or a collector's piece — we have it, and we'll show you exactly how it works.</textarea>
+    </div>
+
+    <div class="card">
+      <div class="card-title">💬 Testimonials</div>
+      <div class="card-desc">Customer reviews displayed on the site.</div>
+      <div id="testimonialsList"></div>
+      <button class="btn btn-sm" onclick="addTestimonial()" style="margin-top:8px;">+ Add Review</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">❓ FAQ</div>
+      <div id="faqList"></div>
+      <button class="btn btn-sm" onclick="addFaq()" style="margin-top:8px;">+ Add Question</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📞 Contact Info</div>
+      <label>Phone Number</label>
+      <input type="text" id="contactPhone" value="+1-806-555-0100">
+      <label>Amarillo Address</label>
+      <input type="text" id="addrAmarillo" value="Soncy Rd, Amarillo, TX">
+      <label>Lubbock Address</label>
+      <input type="text" id="addrLubbock" value="Milwaukee Ave, Lubbock, TX">
+    </div>
+  </div>
+
+  <!-- ========== PREVIEW PAGE ========== -->
+  <div class="page" id="page-preview">
+    <div class="card">
+      <div class="card-title">👁️ Live Preview</div>
+      <div class="card-desc">See how the site looks right now.</div>
+      <div class="preview-toggle">
+        <button class="btn btn-sm active" onclick="setPreview('desktop', this)">🖥️ Desktop</button>
+        <button class="btn btn-sm" onclick="setPreview('mobile', this)">📱 Mobile</button>
+      </div>
+    </div>
+    <div id="previewContainer" style="border-radius:var(--radius); overflow:hidden; border:1px solid var(--border);">
+      <iframe id="previewFrame" class="preview-frame" src="../index.html"></iframe>
+    </div>
+  </div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Media Picker Modal -->
+<div class="modal-overlay" id="mediaPickerModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Choose Media</div>
+      <button class="modal-close" onclick="closeMediaPicker()">&times;</button>
+    </div>
+    <div class="media-grid" id="pickerGrid"></div>
+  </div>
+</div>
+
+<script>
+// ===== STATE =====
+const DB_NAME = 'KnifeGuysAdmin';
+const DB_VERSION = 1;
+let db = null;
+let mediaFiles = [];
+let currentPickerCallback = null;
+
+// Default site content
+let siteContent = {
+  hero: {
+    bgType: 'animation',
+    videoId: null,
+    imageId: null,
+    badge: 'Est. 2003 · Emerald, Texas',
+    title: 'Put It In Your<br><span class="gold">Pocket</span><br>See How It Feels',
+    subtitle: 'Premium knives, swords, and custom engraving. Over 20 years of helping you find the perfect blade — for any purpose, any budget.',
+    btn1Text: 'Browse Collection',
+    btn1Link: 'knives.html',
+    btn2Text: 'Visit Us',
+    btn2Link: 'contact.html'
+  },
+  products: [
+    { title: 'Damascus Steel', label: 'Premium Collection', desc: 'Hand-forged Damascus blades with unique patterns. Every piece is one of a kind — as strong as it is beautiful.', price: 'From $89', link: 'knives.html', image: 'images/hero-knives-cinematic.png' },
+    { title: "Chef's Collection", label: 'Kitchen', desc: "Professional-grade kitchen knives for every culinary task. From chef's knives to cleavers — the brands chefs trust.", price: 'From $35', link: 'knives.html', image: 'images/hero-kitchen-cinematic.png' },
+    { title: 'Swords & Blades', label: 'Battle Ready', desc: 'Functional battle-ready swords, movie replicas, and collector pieces. Kill Bill, historical, and fantasy blades.', price: 'From $75', link: 'swords.html', image: 'images/hero-swords-cinematic.png' },
+    { title: 'Personal Engraving', label: 'Custom', desc: 'Make it truly yours. Custom engraving on knives, swords, and tools. Perfect for gifts, milestones, and keepsakes.', price: 'Starting at $15', link: 'engraving.html', image: 'images/hero-engraving-cinematic.png' }
+  ],
+  about: {
+    title: 'More Than A Store',
+    text: "For over 20 years, we've been the Panhandle's destination for premium blades. Whether you need a hunting companion, a kitchen workhorse, or a collector's piece — we have it, and we'll show you exactly how it works."
+  },
+  testimonials: [
+    { text: "Best knife store in the Panhandle, hands down. They took the time to show me exactly what I needed for elk hunting. Not just selling — educating.", author: "Mike R.", role: "Hunter · Amarillo" },
+    { text: "Got my husband's anniversary knife engraved here. They did an incredible job and had it ready faster than expected. The craftsmanship is unreal.", author: "Sarah T.", role: "Gift Buyer · Lubbock" },
+    { text: "I've been coming here for years. They carry brands you can't find anywhere else in the area, and they actually know what they're talking about.", author: "James K.", role: "Collector · Emerald" }
+  ],
+  faq: [
+    { q: "What brands do you carry?", a: "We carry Benchmade, Case, William Henry, Buck, Kershaw, Gerber, CRKT, Cold Steel, and many more." },
+    { q: "Do you do custom engraving?", a: "Yes! Custom engraving is available at both locations. Perfect for birthdays, military gifts, corporate awards, and wedding party gifts." },
+    { q: "Can I try a knife before buying?", a: "Absolutely. We encourage it. Put it in your pocket, see how it feels, test the weight and grip." },
+    { q: "What are your hours?", a: "Monday through Saturday, 10 AM to 7 PM. Closed Sundays. Both locations keep the same hours." }
+  ],
+  contact: {
+    phone: '+1-806-555-0100',
+    amarillo: 'Soncy Rd, Amarillo, TX',
+    lubbock: 'Milwaukee Ave, Lubbock, TX'
+  },
+  lastSaved: null
+};
+
+// ===== INDEXEDDB =====
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains('media')) {
+        db.createObjectStore('media', { keyPath: 'id' });
+      }
+      if (!db.objectStoreNames.contains('content')) {
+        db.createObjectStore('content', { keyPath: 'key' });
+      }
+    };
+    req.onsuccess = (e) => { db = e.target.result; resolve(db); };
+    req.onerror = (e) => reject(e);
+  });
+}
+
+function dbPut(store, data) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(store, 'readwrite');
+    tx.objectStore(store).put(data);
+    tx.oncomplete = () => resolve();
+    tx.onerror = (e) => reject(e);
+  });
+}
+
+function dbGetAll(store) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(store, 'readonly');
+    const req = tx.objectStore(store).getAll();
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = (e) => reject(e);
+  });
+}
+
+function dbGet(store, key) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(store, 'readonly');
+    const req = tx.objectStore(store).get(key);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = (e) => reject(e);
+  });
+}
+
+function dbDelete(store, key) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(store, 'readwrite');
+    tx.objectStore(store).delete(key);
+    tx.oncomplete = () => resolve();
+    tx.onerror = (e) => reject(e);
+  });
+}
+
+function dbClear(store) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(store, 'readwrite');
+    tx.objectStore(store).clear();
+    tx.oncomplete = () => resolve();
+    tx.onerror = (e) => reject(e);
+  });
+}
+
+// ===== NAVIGATION =====
+function switchPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.querySelector(`.nav-tab[data-page="${page}"]`).classList.add('active');
+  if (page === 'preview') refreshPreview();
+}
+
+document.querySelectorAll('.nav-tab').forEach(tab => {
+  tab.addEventListener('click', () => switchPage(tab.dataset.page));
+});
+
+// ===== MEDIA MANAGEMENT =====
+function genId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+
+async function uploadFiles(files) {
+  for (const file of files) {
+    const isVideo = file.type.startsWith('video/');
+    const reader = new FileReader();
+    await new Promise((resolve) => {
+      reader.onload = async (e) => {
+        const media = {
+          id: genId(),
+          name: file.name,
+          type: isVideo ? 'video' : 'image',
+          mime: file.type,
+          size: file.size,
+          data: e.target.result,
+          created: Date.now()
+        };
+        await dbPut('media', media);
+        mediaFiles.push(media);
+        resolve();
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+  renderMediaGrid();
+  updateStats();
+  showToast(`${files.length} file(s) uploaded`);
+}
+
+function renderMediaGrid() {
+  const grid = document.getElementById('mediaGrid');
+  const count = document.getElementById('mediaCount');
+  count.textContent = mediaFiles.length + ' files';
+  
+  if (mediaFiles.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-dim);font-size:14px;">No media yet. Upload some photos or videos above.</div>';
+    return;
+  }
+
+  grid.innerHTML = mediaFiles.map(m => `
+    <div class="media-item" data-id="${m.id}">
+      ${m.type === 'video' 
+        ? `<video src="${m.data}" muted preload="metadata"></video>`
+        : `<img src="${m.data}" alt="${m.name}">`
+      }
+      <div class="media-item-badge">${m.type === 'video' ? '🎬' : '📷'} ${formatSize(m.size)}</div>
+      <button class="media-item-delete" onclick="event.stopPropagation();deleteMedia('${m.id}')">&times;</button>
+      <div class="media-item-name">${m.name}</div>
+    </div>
+  `).join('');
+}
+
+async function deleteMedia(id) {
+  await dbDelete('media', id);
+  mediaFiles = mediaFiles.filter(m => m.id !== id);
+  renderMediaGrid();
+  updateStats();
+  showToast('File deleted');
+}
+
+async function clearAllMedia() {
+  if (!confirm('Delete ALL media files? This cannot be undone.')) return;
+  await dbClear('media');
+  mediaFiles = [];
+  renderMediaGrid();
+  updateStats();
+  showToast('All media cleared');
+}
+
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1048576) return (bytes/1024).toFixed(0) + ' KB';
+  return (bytes/1048576).toFixed(1) + ' MB';
+}
+
+// ===== DROPZONE =====
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('fileInput');
+
+dropzone.addEventListener('click', () => fileInput.click());
+dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+dropzone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropzone.classList.remove('dragover');
+  uploadFiles(e.dataTransfer.files);
+});
+fileInput.addEventListener('change', (e) => uploadFiles(e.target.files));
+
+// ===== MEDIA PICKER =====
+function openMediaPicker(callback) {
+  currentPickerCallback = callback;
+  const grid = document.getElementById('pickerGrid');
+  const eligible = mediaFiles; // all media
+  if (eligible.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-dim);">No media uploaded yet. Go to the Media tab to upload files first.</div>';
+  } else {
+    grid.innerHTML = eligible.map(m => `
+      <div class="media-item" onclick="selectMedia('${m.id}')">
+        ${m.type === 'video' 
+          ? `<video src="${m.data}" muted preload="metadata"></video>`
+          : `<img src="${m.data}" alt="${m.name}">`
+        }
+        <div class="media-item-badge">${m.type === 'video' ? '🎬' : '📷'}</div>
+        <div class="media-item-name">${m.name}</div>
+      </div>
+    `).join('');
+  }
+  document.getElementById('mediaPickerModal').classList.add('open');
+}
+
+function closeMediaPicker() {
+  document.getElementById('mediaPickerModal').classList.remove('open');
+  currentPickerCallback = null;
+}
+
+function selectMedia(id) {
+  if (currentPickerCallback) currentPickerCallback(id);
+  closeMediaPicker();
+}
+
+// ===== HERO EDITOR =====
+document.getElementById('heroBgType').addEventListener('change', (e) => {
+  document.getElementById('heroVideoPicker').style.display = e.target.value === 'video' ? 'block' : 'none';
+  document.getElementById('heroImagePicker').style.display = e.target.value === 'image' ? 'block' : 'none';
+});
+
+function openHeroVideoPicker() {
+  openMediaPicker((id) => {
+    const m = mediaFiles.find(f => f.id === id);
+    if (m && m.type === 'video') {
+      siteContent.hero.videoId = id;
+      document.getElementById('heroVideoThumb').src = m.data;
+      document.getElementById('heroVideoThumb').style.display = 'block';
+      document.getElementById('heroVideoName').textContent = m.name;
+    } else {
+      showToast('Please select a video file');
+    }
+  });
+}
+
+function openHeroImagePicker() {
+  openMediaPicker((id) => {
+    const m = mediaFiles.find(f => f.id === id);
+    if (m && m.type === 'image') {
+      siteContent.hero.imageId = id;
+      document.getElementById('heroImageThumb').src = m.data;
+      document.getElementById('heroImageThumb').style.display = 'block';
+      document.getElementById('heroImageName').textContent = m.name;
+    } else {
+      showToast('Please select an image file');
+    }
+  });
+}
+
+// Wire up the picker buttons
+window.openMediaPicker = function(type) {
+  if (type === 'heroVideo') openHeroVideoPicker();
+  if (type === 'heroImage') openHeroImagePicker();
+};
+
+// ===== PRODUCTS EDITOR =====
+function renderProducts() {
+  const list = document.getElementById('productsList');
+  list.innerHTML = siteContent.products.map((p, i) => `
+    <div class="product-editor">
+      <div class="product-editor-header">
+        <div class="product-editor-title">${p.label}: ${p.title}</div>
+        <img class="product-thumb" src="${p.image}" alt="${p.title}" onclick="pickProductImage(${i})" title="Click to change image">
+      </div>
+      <div class="field-row">
+        <div><label>Label</label><input type="text" value="${p.label}" onchange="siteContent.products[${i}].label=this.value"></div>
+        <div><label>Title</label><input type="text" value="${p.title}" onchange="siteContent.products[${i}].title=this.value"></div>
+      </div>
+      <label>Description</label>
+      <textarea rows="2" onchange="siteContent.products[${i}].desc=this.value">${p.desc}</textarea>
+      <div class="field-row">
+        <div><label>Price</label><input type="text" value="${p.price}" onchange="siteContent.products[${i}].price=this.value"></div>
+        <div><label>Link</label><input type="text" value="${p.link}" onchange="siteContent.products[${i}].link=this.value"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function pickProductImage(index) {
+  openMediaPicker((id) => {
+    const m = mediaFiles.find(f => f.id === id);
+    if (m) {
+      siteContent.products[index].image = m.data;
+      renderProducts();
+      showToast('Product image updated');
+    }
+  });
+}
+
+// ===== TESTIMONIALS EDITOR =====
+function renderTestimonials() {
+  const list = document.getElementById('testimonialsList');
+  list.innerHTML = siteContent.testimonials.map((t, i) => `
+    <div class="faq-editor">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-weight:600;font-size:13px;">Review ${i+1}</span>
+        <button class="btn btn-sm btn-red" onclick="siteContent.testimonials.splice(${i},1);renderTestimonials()">✕</button>
+      </div>
+      <textarea rows="2" onchange="siteContent.testimonials[${i}].text=this.value">${t.text}</textarea>
+      <div class="field-row">
+        <div><label>Name</label><input type="text" value="${t.author}" onchange="siteContent.testimonials[${i}].author=this.value"></div>
+        <div><label>Role</label><input type="text" value="${t.role}" onchange="siteContent.testimonials[${i}].role=this.value"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addTestimonial() {
+  siteContent.testimonials.push({ text: '', author: '', role: '' });
+  renderTestimonials();
+}
+
+// ===== FAQ EDITOR =====
+function renderFaq() {
+  const list = document.getElementById('faqList');
+  list.innerHTML = siteContent.faq.map((f, i) => `
+    <div class="faq-editor">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-weight:600;font-size:13px;">Q${i+1}</span>
+        <button class="btn btn-sm btn-red" onclick="siteContent.faq.splice(${i},1);renderFaq()">✕</button>
+      </div>
+      <label>Question</label>
+      <input type="text" value="${f.q}" onchange="siteContent.faq[${i}].q=this.value">
+      <label>Answer</label>
+      <textarea rows="2" onchange="siteContent.faq[${i}].a=this.value">${f.a}</textarea>
+    </div>
+  `).join('');
+}
+
+function addFaq() {
+  siteContent.faq.push({ q: '', a: '' });
+  renderFaq();
+}
+
+// ===== PREVIEW =====
+function refreshPreview() {
+  document.getElementById('previewFrame').src = '../index.html?' + Date.now();
+}
+
+function setPreview(mode, btn) {
+  const container = document.getElementById('previewContainer');
+  const frame = document.getElementById('previewFrame');
+  document.querySelectorAll('.preview-toggle .btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (mode === 'mobile') {
+    container.style.maxWidth = '375px';
+    container.style.margin = '0 auto';
+    frame.style.minHeight = '667px';
+  } else {
+    container.style.maxWidth = '100%';
+    frame.style.minHeight = '500px';
+  }
+}
+
+// ===== SAVE / LOAD =====
+async function saveAll() {
+  // Read current form values into state
+  siteContent.hero.bgType = document.getElementById('heroBgType').value;
+  siteContent.hero.badge = document.getElementById('heroBadge').value;
+  siteContent.hero.title = document.getElementById('heroTitle').value;
+  siteContent.hero.subtitle = document.getElementById('heroSubtitle').value;
+  siteContent.hero.btn1Text = document.getElementById('heroBtn1Text').value;
+  siteContent.hero.btn1Link = document.getElementById('heroBtn1Link').value;
+  siteContent.hero.btn2Text = document.getElementById('heroBtn2Text').value;
+  siteContent.hero.btn2Link = document.getElementById('heroBtn2Link').value;
+  siteContent.about.title = document.getElementById('aboutTitle').value;
+  siteContent.about.text = document.getElementById('aboutText').value;
+  siteContent.contact.phone = document.getElementById('contactPhone').value;
+  siteContent.contact.amarillo = document.getElementById('addrAmarillo').value;
+  siteContent.contact.lubbock = document.getElementById('addrLubbock').value;
+  siteContent.lastSaved = new Date().toISOString();
+
+  await dbPut('content', { key: 'siteContent', data: siteContent });
+  
+  const indicator = document.getElementById('saveIndicator');
+  indicator.classList.add('show');
+  setTimeout(() => indicator.classList.remove('show'), 2000);
+  
+  updateStats();
+  showToast('✓ All changes saved');
+}
+
+async function loadContent() {
+  const saved = await dbGet('content', 'siteContent');
+  if (saved && saved.data) {
+    siteContent = { ...siteContent, ...saved.data };
+  }
+}
+
+function exportData() {
+  const blob = new Blob([JSON.stringify(siteContent, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'knife-guys-content.json';
+  a.click(); URL.revokeObjectURL(url);
+  showToast('Content exported');
+}
+
+// ===== STATS =====
+function updateStats() {
+  document.getElementById('statMedia').textContent = mediaFiles.length;
+  document.getElementById('statProducts').textContent = siteContent.products.length;
+  document.getElementById('statTestimonials').textContent = siteContent.testimonials.length;
+  if (siteContent.lastSaved) {
+    const d = new Date(siteContent.lastSaved);
+    document.getElementById('statLastSaved').textContent = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+}
+
+// ===== TOAST =====
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// ===== POPULATE FORMS =====
+function populateForms() {
+  document.getElementById('heroBgType').value = siteContent.hero.bgType;
+  document.getElementById('heroBadge').value = siteContent.hero.badge;
+  document.getElementById('heroTitle').value = siteContent.hero.title;
+  document.getElementById('heroSubtitle').value = siteContent.hero.subtitle;
+  document.getElementById('heroBtn1Text').value = siteContent.hero.btn1Text;
+  document.getElementById('heroBtn1Link').value = siteContent.hero.btn1Link;
+  document.getElementById('heroBtn2Text').value = siteContent.hero.btn2Text;
+  document.getElementById('heroBtn2Link').value = siteContent.hero.btn2Link;
+  document.getElementById('aboutTitle').value = siteContent.about.title;
+  document.getElementById('aboutText').value = siteContent.about.text;
+  document.getElementById('contactPhone').value = siteContent.contact.phone;
+  document.getElementById('addrAmarillo').value = siteContent.contact.amarillo;
+  document.getElementById('addrLubbock').value = siteContent.contact.lubbock;
+
+  // Trigger hero bg type change
+  document.getElementById('heroBgType').dispatchEvent(new Event('change'));
+
+  // Restore hero media thumbs
+  if (siteContent.hero.videoId) {
+    const m = mediaFiles.find(f => f.id === siteContent.hero.videoId);
+    if (m) {
+      document.getElementById('heroVideoThumb').src = m.data;
+      document.getElementById('heroVideoThumb').style.display = 'block';
+      document.getElementById('heroVideoName').textContent = m.name;
+    }
+  }
+  if (siteContent.hero.imageId) {
+    const m = mediaFiles.find(f => f.id === siteContent.hero.imageId);
+    if (m) {
+      document.getElementById('heroImageThumb').src = m.data;
+      document.getElementById('heroImageThumb').style.display = 'block';
+      document.getElementById('heroImageName').textContent = m.name;
+    }
+  }
+
+  renderProducts();
+  renderTestimonials();
+  renderFaq();
+}
+
+// ===== INIT =====
+async function init() {
+  await openDB();
+  mediaFiles = await dbGetAll('media');
+  await loadContent();
+  populateForms();
+  renderMediaGrid();
+  updateStats();
+}
+
+init();
+</script>
+</body>
+</html>
