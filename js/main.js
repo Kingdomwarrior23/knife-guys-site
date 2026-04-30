@@ -36,37 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ── Scroll-Frame Blade Animation ──
-  const TOTAL_FRAMES = 97;
-  const heroSection = document.querySelector('.hero');
-  const heroFrame = document.getElementById('heroFrame');
-  const scrollHint = document.getElementById('scrollHint');
-
-  if (heroSection && heroFrame) {
-    const frameCache = [];
-    for (let i = 1; i <= TOTAL_FRAMES; i++) {
-      const img = new Image();
-      img.src = `frames/f_${String(i).padStart(4, '0')}.jpg`;
-      frameCache.push(img);
-    }
-
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const rect = heroSection.getBoundingClientRect();
-          const heroH = heroSection.offsetHeight - window.innerHeight;
-          const p = Math.min(1, Math.max(0, -rect.top / heroH));
-          const idx = Math.min(TOTAL_FRAMES - 1, Math.floor(p * TOTAL_FRAMES));
-          if (frameCache[idx] && frameCache[idx].complete) heroFrame.src = frameCache[idx].src;
-          if (scrollHint) scrollHint.style.opacity = Math.max(0, 1 - p * 5);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }, { passive: true });
-  }
-
   // ── Navigation ──
   const nav = document.querySelector('.nav');
   const scrollProgress = document.getElementById('scrollProgress');
@@ -152,23 +121,45 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Hero entrance
-    const heroContent = document.querySelector('.hero-content');
-    if (heroContent && !prefersReducedMotion) {
-      const badge = heroContent.querySelector('.hero-badge');
-      const title = heroContent.querySelector('.hero-title');
-      const subtitle = heroContent.querySelector('.hero-subtitle');
-      const actions = heroContent.querySelector('.hero-actions');
+    // Premium hero word reveal + blade draw-in
+    const splitTitle = document.querySelector('[data-split]');
+    if (splitTitle) {
+      const words = splitTitle.textContent.trim().split(/\s+/);
+      splitTitle.innerHTML = words.map(w => `<span class="word"><span class="word-inner">${w}</span></span>`).join(' ');
+    }
 
-      const tl = gsap.timeline({ delay: 2.4 });
-      if (badge) tl.fromTo(badge, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' });
-      if (title) tl.fromTo(title, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.3');
-      if (subtitle) tl.fromTo(subtitle, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.4');
-      if (actions) tl.fromTo(actions, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3');
+    if (!prefersReducedMotion) {
+      const tl = gsap.timeline({ delay: 2.15 });
+      tl.fromTo('.kg-eyebrow', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .55, ease: 'power2.out' })
+        .to('.kg-word-title .word-inner', { y: 0, opacity: 1, duration: .7, stagger: .055, ease: 'power3.out' }, '-=.18')
+        .fromTo('.kg-hero-lede', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: .65, ease: 'power2.out' }, '-=.28')
+        .fromTo('.kg-hero-actions, .kg-trust-line', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .55, stagger: .1, ease: 'power2.out' }, '-=.25')
+        .fromTo('.kg-blade-stage', { opacity: 0, scale: .92, rotate: -4 }, { opacity: 1, scale: 1, rotate: 0, duration: .9, ease: 'power3.out' }, '-=.95')
+        .fromTo('.blade-edge, .blade-highlight', { strokeDasharray: 700, strokeDashoffset: 700 }, { strokeDashoffset: 0, duration: .9, ease: 'power2.inOut' }, '-=.35')
+        .fromTo('.kg-product-note', { opacity: 0, x: 18 }, { opacity: 1, x: 0, duration: .5, ease: 'power2.out' }, '-=.25');
+
+      gsap.to('.kg-blade-stage', { y: -16, duration: 3.2, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+      gsap.to('.ring-one', { rotateZ: 360, duration: 34, repeat: -1, ease: 'none' });
+      gsap.to('.ring-two', { rotateZ: -360, duration: 42, repeat: -1, ease: 'none' });
+
+      // Magnetic buttons, desktop only
+      if (window.matchMedia('(hover: hover)').matches) {
+        document.querySelectorAll('.kg-magnetic').forEach(btn => {
+          btn.addEventListener('mousemove', e => {
+            const r = btn.getBoundingClientRect();
+            const x = (e.clientX - r.left - r.width / 2) * .14;
+            const y = (e.clientY - r.top - r.height / 2) * .14;
+            gsap.to(btn, { x, y, duration: .25, ease: 'power2.out' });
+          });
+          btn.addEventListener('mouseleave', () => gsap.to(btn, { x: 0, y: 0, duration: .35, ease: 'power2.out' }));
+        });
+      }
+    } else {
+      document.querySelectorAll('.kg-word-title .word-inner').forEach(el => { el.style.opacity = 1; el.style.transform = 'none'; });
     }
 
     // Section headers — fade in + slide up
-    gsap.utils.toArray('.section-header.reveal').forEach(el => {
+    gsap.utils.toArray('.section-header.reveal, .kg-section-head.reveal, .kg-split-copy.reveal').forEach(el => {
       gsap.fromTo(el,
         { opacity: 0, y: 40 },
         {
@@ -216,11 +207,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Parallax on CTA banner background
     const ctaBg = document.querySelector('.cta-banner-bg');
     if (ctaBg && !prefersReducedMotion) {
-      gsap.to(ctaBg, {
-        y: -80,
-        ease: 'none',
-        scrollTrigger: { trigger: '.cta-banner', start: 'top bottom', end: 'bottom top', scrub: 1 }
-      });
+      gsap.to(ctaBg, { y: -80, ease: 'none', scrollTrigger: { trigger: '.cta-banner', start: 'top bottom', end: 'bottom top', scrub: 1 } });
+    }
+
+    const ctaLines = document.querySelector('.kg-cta-lines');
+    if (ctaLines && !prefersReducedMotion) {
+      gsap.to(ctaLines, { xPercent: -10, ease: 'none', scrollTrigger: { trigger: '.kg-cta-band', start: 'top bottom', end: 'bottom top', scrub: 1 } });
     }
 
     // Refresh ScrollTrigger after all images load

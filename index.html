@@ -3,79 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Knife Guys | Premium Knives & Swords | Amarillo & Lubbock, TX</title>
-  <meta name="description" content="The Knife Guys — premium knives, swords, collectibles, and custom engraving in Amarillo & Lubbock, TX. 20+ years of expertise. Benchmade, Case, William Henry & more.">
-  <meta name="keywords" content="knife store Texas, custom knife engraving, Benchmade, Case knives, William Henry, hunting knives, kitchen knives, swords, self defense, Amarillo Lubbock TX">
+  <title>The Knife Guys | Premium Knives, Swords & Engraving in Amarillo & Lubbock, TX</title>
+  <meta name="description" content="The Knife Guys helps West Texans find the right knife, sword, or custom-engraved gift. Visit our Amarillo and Lubbock stores for premium blades and expert guidance.">
+  <meta name="keywords" content="knife store Lubbock TX, knife store Amarillo TX, custom knife engraving, Benchmade, Case knives, William Henry, hunting knives, kitchen knives, swords, self defense">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://lubbockknifeguys.com/">
-  
-  <!-- Open Graph -->
+
   <meta property="og:title" content="The Knife Guys | Premium Knives & Custom Engraving">
-  <meta property="og:description" content="20+ years of knife expertise. Premium brands, custom engraving, and a blade for every purpose. Visit us in Amarillo & Lubbock, TX.">
+  <meta property="og:description" content="Premium knives, swords, collectibles, and custom engraving in Amarillo and Lubbock. Put it in your pocket. See how it feels.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://lubbockknifeguys.com/">
-  <meta property="og:image" content="images/hero-knives-cinematic.png">
-  
-  <!-- Fonts -->
+  <meta property="og:image" content="assets/img/logo-official.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- GSAP -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js" defer></script>
-  <!-- Lenis disabled for performance -->
-  
-  <!-- Styles -->
+
   <link rel="stylesheet" href="css/style.css">
-  
-  <!-- Schema -->
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "The Knife Guys",
-    "description": "Premium knives, swords, collectibles, and custom engraving. 20+ years of expertise.",
+    "description": "Premium knives, swords, collectibles, and custom engraving in Amarillo and Lubbock, Texas.",
     "url": "https://lubbockknifeguys.com",
     "telephone": "+1-806-783-4620",
     "address": [
-      {
-        "@type": "PostalAddress",
-        "streetAddress": "Soncy Rd",
-        "addressLocality": "Amarillo",
-        "addressRegion": "TX",
-        "addressCountry": "US"
-      },
-      {
-        "@type": "PostalAddress",
-        "streetAddress": "Milwaukee Ave",
-        "addressLocality": "Lubbock",
-        "addressRegion": "TX",
-        "addressCountry": "US"
-      }
+      {"@type": "PostalAddress", "streetAddress": "3700 Soncy Rd", "addressLocality": "Amarillo", "addressRegion": "TX", "addressCountry": "US"},
+      {"@type": "PostalAddress", "streetAddress": "6620 Milwaukee Ave", "addressLocality": "Lubbock", "addressRegion": "TX", "addressCountry": "US"}
     ],
-    "openingHours": ["Mo-Sa 10:00-19:00"],
+    "openingHours": "Mo-Sa 10:00-19:00",
     "priceRange": "$$",
-    "image": "images/hero-knives-cinematic.png"
+    "image": "https://lubbockknifeguys.com/assets/img/logo-official.png",
+    "sameAs": ["https://amarilloknifeguys.com"]
   }
   </script>
 </head>
 <body>
 
-<!-- Loading Screen -->
 <div class="loading-screen" id="loadingScreen">
   <div class="loading-logo"><img src="assets/img/logo-official.png" alt="The Knife Guys" style="height:60px;width:auto;"></div>
   <div class="loading-bar"><div class="loading-bar-fill"></div></div>
 </div>
 
-<!-- Custom Cursor -->
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
-
-<!-- Scroll Progress -->
 <div class="scroll-progress" id="scrollProgress"></div>
 
-<!-- Navigation -->
 <nav class="nav">
   <a href="index.html" class="nav-logo"><img src="assets/img/logo-official.png" alt="The Knife Guys" style="height:50px;width:auto;"></a>
   <ul class="nav-links">
@@ -86,396 +64,189 @@
     <li><a href="about.html">About</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
-  <a href="tel:+18065550100" class="nav-cta">Call Us</a>
-  <div class="nav-toggle">
-    <span></span><span></span><span></span>
-  </div>
+  <a href="tel:+18067834620" class="nav-cta">Call Us</a>
+  <div class="nav-toggle" aria-label="Open menu"><span></span><span></span><span></span></div>
 </nav>
 
-<!-- Hero with Scroll-Frame Blade Animation -->
-<section class="hero">
-  <div class="hero-sticky">
-    <img class="hero-frame" id="heroFrame" src="frames/f_0001.jpg" alt="Blade craftsmanship">
-    <div class="hero-overlay"></div>
-    <div class="hero-vignette"></div>
-    <div class="blade-reflection"></div>
-    <div class="spark-container">
-      <div class="spark"></div><div class="spark"></div><div class="spark"></div>
-      <div class="spark"></div><div class="spark"></div><div class="spark"></div>
-      <div class="spark"></div><div class="spark"></div><div class="spark"></div>
-      <div class="spark"></div>
-    </div>
-    <div class="hero-content">
-      <div class="hero-badge">Est. 2003 · Amarillo & Lubbock, Texas</div>
-      <h1 class="hero-title">Put It In Your<br><span class="gold">Pocket</span><br>See How It Feels</h1>
-      <p class="hero-subtitle">Premium knives, swords, and custom engraving. Over 20 years of helping you find the perfect blade — for any purpose, any budget.</p>
-      <div class="hero-actions">
-        <a href="knives.html" class="btn btn-primary">Browse Collection</a>
-        <a href="contact.html" class="btn btn-outline">Visit Us</a>
+<header class="kg-hero" id="top">
+  <div class="kg-hero-bg"></div>
+  <div class="kg-hero-grid"></div>
+  <div class="kg-light kg-light-red"></div>
+  <div class="kg-light kg-light-blue"></div>
+
+  <div class="kg-hero-inner">
+    <div class="kg-hero-copy">
+      <div class="kg-eyebrow"><span></span> Amarillo & Lubbock · Est. 2003</div>
+      <h1 class="kg-word-title" data-split>Put It In Your Pocket. See How It Feels.</h1>
+      <p class="kg-hero-lede">Premium knives, swords, collectibles, and custom engraving — with real people who know blades and help you find the right one.</p>
+      <div class="kg-hero-actions">
+        <a href="knives.html" class="btn btn-primary kg-magnetic">Browse Knives <span>→</span></a>
+        <a href="contact.html" class="btn btn-outline kg-magnetic">Visit A Store</a>
       </div>
+      <div class="kg-trust-line">20+ years in business · Custom engraving · Two West Texas locations</div>
     </div>
-    <div class="scroll-hint" id="scrollHint">
-      <span>Scroll to reveal</span>
-      <div class="scroll-arrow">&#8595;</div>
+
+    <div class="kg-blade-stage" aria-label="Animated blade graphic">
+      <div class="kg-stage-ring ring-one"></div>
+      <div class="kg-stage-ring ring-two"></div>
+      <svg class="kg-blade-svg" viewBox="0 0 760 300" role="img" aria-label="Premium blade silhouette">
+        <defs>
+          <linearGradient id="steel" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0" stop-color="#f4f4f4"/>
+            <stop offset="0.28" stop-color="#747474"/>
+            <stop offset="0.52" stop-color="#ffffff"/>
+            <stop offset="0.72" stop-color="#a7a7a7"/>
+            <stop offset="1" stop-color="#eeeeee"/>
+          </linearGradient>
+          <linearGradient id="redEdge" x1="0" x2="1">
+            <stop offset="0" stop-color="#ff0000" stop-opacity="0"/>
+            <stop offset="0.5" stop-color="#ff0000"/>
+            <stop offset="1" stop-color="#0040ff"/>
+          </linearGradient>
+          <filter id="glow"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <path class="blade-shadow" d="M72 156 C210 118 383 82 704 70 C640 119 520 159 347 179 C230 193 141 185 72 156Z"/>
+        <path class="blade-body" d="M68 142 C220 88 430 51 724 39 C660 97 523 145 338 166 C216 180 123 171 68 142Z"/>
+        <path class="blade-edge" d="M92 145 C252 120 472 91 691 53"/>
+        <path class="blade-highlight" d="M158 119 C308 91 474 72 610 61"/>
+        <g class="blade-handle">
+          <path d="M34 136 C54 124 76 123 96 137 L88 164 C63 165 45 158 34 136Z"/>
+          <circle cx="62" cy="145" r="5"/>
+        </g>
+      </svg>
+      <div class="kg-spark s1"></div><div class="kg-spark s2"></div><div class="kg-spark s3"></div><div class="kg-spark s4"></div>
+      <div class="kg-product-note">Custom engraving available at both stores</div>
     </div>
   </div>
-</section>
+  <a class="kg-scroll-cue" href="#perfect-blade">Scroll <span></span></a>
+</header>
 
-<!-- Brand Strip -->
 <div class="brand-strip">
   <div class="brand-strip-inner">
-    <span class="brand-item">BENCHMADE</span>
-    <span class="brand-item">CASE</span>
-    <span class="brand-item">WILLIAM HENRY</span>
-    <span class="brand-item">BUCK</span>
-    <span class="brand-item">KERSHAW</span>
-    <span class="brand-item">GERBER</span>
-    <span class="brand-item">CRKT</span>
-    <span class="brand-item">COLD STEEL</span>
-    <span class="brand-item">BENCHMADE</span>
-    <span class="brand-item">CASE</span>
-    <span class="brand-item">WILLIAM HENRY</span>
-    <span class="brand-item">BUCK</span>
-    <span class="brand-item">KERSHAW</span>
-    <span class="brand-item">GERBER</span>
-    <span class="brand-item">CRKT</span>
-    <span class="brand-item">COLD STEEL</span>
+    <span class="brand-item">BENCHMADE</span><span class="brand-item">CASE</span><span class="brand-item">WILLIAM HENRY</span><span class="brand-item">BUCK</span><span class="brand-item">KERSHAW</span><span class="brand-item">GERBER</span><span class="brand-item">CRKT</span><span class="brand-item">COLD STEEL</span>
+    <span class="brand-item">BENCHMADE</span><span class="brand-item">CASE</span><span class="brand-item">WILLIAM HENRY</span><span class="brand-item">BUCK</span><span class="brand-item">KERSHAW</span><span class="brand-item">GERBER</span><span class="brand-item">CRKT</span><span class="brand-item">COLD STEEL</span>
   </div>
 </div>
 
-<!-- About Section -->
-<section class="section" id="about">
-  <div class="section-header reveal">
+<section class="kg-section kg-intro" id="about">
+  <div class="kg-section-head reveal">
     <div class="section-label">Our Story</div>
     <h2 class="section-title">More Than A Store</h2>
-    <p class="section-subtitle">For over 20 years, we've been the Panhandle's destination for premium blades. Whether you need a hunting companion, a kitchen workhorse, or a collector's piece — we have it, and we'll show you exactly how it works.</p>
+    <p class="section-subtitle">For more than 20 years, The Knife Guys has helped West Texans choose blades they can actually hold, test, and trust.</p>
   </div>
-  
-  <div class="stats gsap-stagger">
-    <div class="stat stagger-item gsap-stagger-item">
-      <div class="stat-number counter" data-target="20" data-suffix="+">0</div>
-      <div class="stat-label">Years in Business</div>
+  <div class="kg-stats gsap-stagger">
+    <div class="kg-stat gsap-stagger-item"><strong class="counter" data-target="20" data-suffix="+">0</strong><span>Years in Business</span></div>
+    <div class="kg-stat gsap-stagger-item"><strong class="counter" data-target="1000" data-suffix="+">0</strong><span>Blades in Stock</span></div>
+    <div class="kg-stat gsap-stagger-item"><strong class="counter" data-target="50" data-suffix="+">0</strong><span>Top Brands</span></div>
+    <div class="kg-stat gsap-stagger-item"><strong class="counter" data-target="2">0</strong><span>Store Locations</span></div>
+  </div>
+</section>
+
+<section class="kg-section kg-blade-finder" id="perfect-blade">
+  <div class="kg-split">
+    <div class="kg-split-copy reveal">
+      <div class="section-label">Find Your Perfect Blade</div>
+      <h2 class="section-title">Tell Us The Job. We'll Match The Steel.</h2>
+      <p class="section-subtitle">Kitchen prep, ranch work, hunting, collecting, self-defense, gifts — every blade has a purpose. We help you feel the weight, compare the grip, and leave with the right one.</p>
+      <a href="contact.html" class="btn btn-primary">Ask An Expert <span>→</span></a>
     </div>
-    <div class="stat stagger-item gsap-stagger-item">
-      <div class="stat-number counter" data-target="1000" data-suffix="+">0</div>
-      <div class="stat-label">Blades in Stock</div>
-    </div>
-    <div class="stat stagger-item gsap-stagger-item">
-      <div class="stat-number counter" data-target="50" data-suffix="+">0</div>
-      <div class="stat-label">Top Brands</div>
-    </div>
-    <div class="stat stagger-item gsap-stagger-item">
-      <div class="stat-number counter" data-target="2" data-suffix="">0</div>
-      <div class="stat-label">Store Locations</div>
+    <div class="kg-choice-panel gsap-stagger">
+      <a class="kg-choice gsap-stagger-item" href="knives.html"><span>01</span><strong>Everyday Carry</strong><em>Pocket knives that feel right in your hand.</em></a>
+      <a class="kg-choice gsap-stagger-item" href="knives.html"><span>02</span><strong>Kitchen Workhorses</strong><em>Chef's knives, cleavers, and prep tools.</em></a>
+      <a class="kg-choice gsap-stagger-item" href="swords.html"><span>03</span><strong>Swords & Collectibles</strong><em>Battle-ready pieces, replicas, and display blades.</em></a>
+      <a class="kg-choice gsap-stagger-item" href="engraving.html"><span>04</span><strong>Custom Engraving</strong><em>Names, dates, logos, and gift messages.</em></a>
     </div>
   </div>
 </section>
 
-<!-- Featured Products -->
-<section class="section" style="background: var(--bg-secondary);">
-  <div class="section-header reveal">
-    <div class="section-label">Featured</div>
-    <h2 class="section-title">Find Your Perfect Blade</h2>
-    <p class="section-subtitle">From everyday carry to collector's showpieces — if you give us a price, we'll find you a knife.</p>
+<section class="kg-section kg-products">
+  <div class="kg-section-head reveal">
+    <div class="section-label">Shop By Purpose</div>
+    <h2 class="section-title">Blades With A Reason</h2>
+    <p class="section-subtitle">No generic shelves. No guessing. Start with what you need the blade to do.</p>
   </div>
-  
-  <div class="product-grid gsap-stagger">
-    <div class="product-card stagger-item gsap-stagger-item">
-      <div class="product-card-img" style="background-image: url('images/hero-knives-cinematic.png')">
-        <div class="ken-burns-inner" style="background-image: url('images/hero-knives-cinematic.png')"></div>
-      </div>
-      <div class="product-card-body">
-        <div class="product-card-label">Premium Collection</div>
-        <h3 class="product-card-title">Damascus Steel</h3>
-        <p class="product-card-desc">Hand-forged Damascus blades with unique patterns. Every piece is one of a kind — as strong as it is beautiful.</p>
-        <div class="product-card-price">From $89</div>
-        <a href="knives.html" class="product-card-cta">Explore →</a>
-      </div>
-    </div>
-    
-    <div class="product-card stagger-item gsap-stagger-item">
-      <div class="product-card-img" style="background-image: url('images/hero-kitchen-cinematic.png')">
-        <div class="ken-burns-inner" style="background-image: url('images/hero-kitchen-cinematic.png')"></div>
-      </div>
-      <div class="product-card-body">
-        <div class="product-card-label">Kitchen</div>
-        <h3 class="product-card-title">Chef's Collection</h3>
-        <p class="product-card-desc">Professional-grade kitchen knives for every culinary task. From chef's knives to cleavers — the brands chefs trust.</p>
-        <div class="product-card-price">From $35</div>
-        <a href="knives.html" class="product-card-cta">Explore →</a>
-      </div>
-    </div>
-    
-    <div class="product-card stagger-item gsap-stagger-item">
-      <div class="product-card-img" style="background-image: url('images/hero-swords-cinematic.png')">
-        <div class="ken-burns-inner" style="background-image: url('images/hero-swords-cinematic.png')"></div>
-      </div>
-      <div class="product-card-body">
-        <div class="product-card-label">Battle Ready</div>
-        <h3 class="product-card-title">Swords & Blades</h3>
-        <p class="product-card-desc">Functional battle-ready swords, movie replicas, and collector pieces. Kill Bill, historical, and fantasy blades.</p>
-        <div class="product-card-price">From $75</div>
-        <a href="swords.html" class="product-card-cta">Explore →</a>
-      </div>
-    </div>
-    
-    <div class="product-card stagger-item gsap-stagger-item">
-      <div class="product-card-img" style="background-image: url('images/hero-engraving-cinematic.png')">
-        <div class="ken-burns-inner" style="background-image: url('images/hero-engraving-cinematic.png')"></div>
-      </div>
-      <div class="product-card-body">
-        <div class="product-card-label">Custom</div>
-        <h3 class="product-card-title">Personal Engraving</h3>
-        <p class="product-card-desc">Make it truly yours. Custom engraving on knives, swords, and tools. Perfect for gifts, milestones, and keepsakes.</p>
-        <div class="product-card-price">Starting at $15</div>
-        <a href="engraving.html" class="product-card-cta">Learn More →</a>
-      </div>
-    </div>
+  <div class="kg-product-grid gsap-stagger">
+    <article class="kg-product-card gsap-stagger-item">
+      <div class="kg-card-top"><span>EDC</span><svg viewBox="0 0 220 80"><path d="M12 43 C64 26 124 19 204 17 C174 44 119 62 49 59 C30 58 17 52 12 43Z"/></svg></div>
+      <h3>Premium Pocket Knives</h3><p>Benchmade, Buck, Kershaw, Case, CRKT, and more — built for daily carry.</p><a href="knives.html">Browse Knives →</a>
+    </article>
+    <article class="kg-product-card gsap-stagger-item">
+      <div class="kg-card-top"><span>CHEF</span><svg viewBox="0 0 220 80"><path d="M18 47 L164 20 C190 16 205 24 210 41 C158 52 92 61 18 57Z"/></svg></div>
+      <h3>Kitchen & Chef Knives</h3><p>Professional-grade blades for prep, slicing, trimming, and everyday cooking.</p><a href="knives.html">Find Kitchen Knives →</a>
+    </article>
+    <article class="kg-product-card gsap-stagger-item">
+      <div class="kg-card-top"><span>SWORDS</span><svg viewBox="0 0 220 80"><path d="M26 41 L168 35 L206 41 L168 47 L26 41Z"/><path d="M54 27 L54 55"/></svg></div>
+      <h3>Swords & Collectibles</h3><p>Functional swords, movie replicas, fantasy blades, and display-worthy pieces.</p><a href="swords.html">View Swords →</a>
+    </article>
+    <article class="kg-product-card gsap-stagger-item">
+      <div class="kg-card-top"><span>LASER</span><svg viewBox="0 0 220 80"><path d="M22 50 L164 25 L207 31 L168 47 L22 58Z"/><path class="red-line" d="M44 46 L180 32"/></svg></div>
+      <h3>Custom Engraving</h3><p>Names, logos, dates, and messages on knives, tools, gifts, and keepsakes.</p><a href="engraving.html">Start Engraving →</a>
+    </article>
   </div>
 </section>
 
-<!-- Why Choose Us -->
-<section class="section">
-  <div class="section-header reveal">
+<section class="kg-section kg-difference">
+  <div class="kg-section-head reveal">
     <div class="section-label">The Difference</div>
     <h2 class="section-title">Why The Knife Guys</h2>
-    <p class="section-subtitle">You can buy a knife anywhere online. But you can't feel it in your hand, test the weight, or ask an expert — until now.</p>
+    <p class="section-subtitle">Online stores show you pictures. We put the blade in your hand.</p>
   </div>
-  
-  <div class="process-steps gsap-stagger">
-    <div class="process-step stagger-item gsap-stagger-item">
-      <h3 class="process-step-title">Try Before You Buy</h3>
-      <p class="process-step-desc">Put it in your pocket, see how it feels. Walk around the store. We don't rush you — the right knife chooses you.</p>
-    </div>
-    <div class="process-step stagger-item gsap-stagger-item">
-      <h3 class="process-step-title">Expert Guidance</h3>
-      <p class="process-step-desc">20+ years of hands-on knowledge. We'll show you the differences in function, build, and metal — not just the price tag.</p>
-    </div>
-    <div class="process-step stagger-item gsap-stagger-item">
-      <h3 class="process-step-title">Custom Orders</h3>
-      <p class="process-step-desc">Don't see what you need? If it's a brand we carry, we can order it. Special requests welcome — just ask.</p>
-    </div>
-    <div class="process-step stagger-item gsap-stagger-item">
-      <h3 class="process-step-title">On-Site Engraving</h3>
-      <p class="process-step-desc">Custom engraving at both locations. Birthdays, military, corporate gifts — make any blade a one-of-a-kind piece.</p>
-    </div>
+  <div class="kg-timeline gsap-stagger">
+    <div class="kg-time-item gsap-stagger-item"><span>01</span><h3>Try Before You Buy</h3><p>Feel the grip, check the weight, test the pocket fit, and compare options side by side.</p></div>
+    <div class="kg-time-item gsap-stagger-item"><span>02</span><h3>Real Guidance</h3><p>We explain steel, function, edge geometry, use case, and price without pressure.</p></div>
+    <div class="kg-time-item gsap-stagger-item"><span>03</span><h3>Special Orders</h3><p>If it's a brand we carry and we don't have it in stock, we'll help you order it.</p></div>
+    <div class="kg-time-item gsap-stagger-item"><span>04</span><h3>On-Site Engraving</h3><p>Custom engraving at both locations for gifts, milestones, military, and corporate orders.</p></div>
   </div>
 </section>
 
-<!-- CTA Banner with Ken Burns -->
-<section class="cta-banner">
-  <div class="cta-banner-bg" style="background-image: url('images/hero-knives-cinematic.png')"></div>
-  <div class="cta-banner-content gsap-reveal">
-    <h2 class="cta-banner-title">The Right Person.<br><span style="color: var(--accent-red)">The Right Blade.</span></h2>
-    <p class="cta-banner-subtitle">Whether it's for the kitchen, the trail, or the display case — we'll help you find it.</p>
-    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-      <a href="knives.html" class="btn btn-primary">Shop Knives</a>
-      <a href="contact.html" class="btn btn-outline">Visit A Store</a>
-    </div>
+<section class="kg-cta-band gsap-reveal">
+  <div class="kg-cta-lines"></div>
+  <h2>The Right Person. The Right Blade.</h2>
+  <p>Whether it's for the kitchen, the trail, the ranch, or the display case — we'll help you find it.</p>
+  <div class="kg-hero-actions center">
+    <a href="knives.html" class="btn btn-primary">Shop Knives <span>→</span></a>
+    <a href="contact.html" class="btn btn-outline">Visit A Store</a>
   </div>
 </section>
 
-<!-- Testimonials -->
-<section class="section">
-  <div class="section-header reveal">
+<section class="kg-section">
+  <div class="kg-section-head reveal">
     <div class="section-label">Reviews</div>
     <h2 class="section-title">What People Say</h2>
   </div>
-  
   <div class="testimonial-grid gsap-stagger">
-    <div class="testimonial stagger-item gsap-stagger-item">
-      <p class="testimonial-text">Best knife store in the Panhandle, hands down. They took the time to show me exactly what I needed for elk hunting. Not just selling — educating.</p>
-      <div class="testimonial-author">Mike R.</div>
-      <div class="testimonial-role">Hunter · Amarillo</div>
-    </div>
-    <div class="testimonial stagger-item gsap-stagger-item">
-      <p class="testimonial-text">Got my husband's anniversary knife engraved here. They did an incredible job and had it ready faster than expected. The craftsmanship is unreal.</p>
-      <div class="testimonial-author">Sarah T.</div>
-      <div class="testimonial-role">Gift Buyer · Lubbock</div>
-    </div>
-    <div class="testimonial stagger-item gsap-stagger-item">
-      <p class="testimonial-text">I've been coming here for years. They carry brands you can't find anywhere else in the area, and they actually know what they're talking about.</p>
-      <div class="testimonial-author">James K.</div>
-      <div class="testimonial-role">Collector · Emerald</div>
-    </div>
+    <div class="testimonial gsap-stagger-item"><p class="testimonial-text">Best knife store in the Panhandle, hands down. They took the time to show me exactly what I needed for elk hunting. Not just selling — educating.</p><div class="testimonial-author">Mike R.</div><div class="testimonial-role">Hunter · Amarillo</div></div>
+    <div class="testimonial gsap-stagger-item"><p class="testimonial-text">Got my husband's anniversary knife engraved here. They did an incredible job and had it ready faster than expected. The craftsmanship is unreal.</p><div class="testimonial-author">Sarah T.</div><div class="testimonial-role">Gift Buyer · Lubbock</div></div>
+    <div class="testimonial gsap-stagger-item"><p class="testimonial-text">I've been coming here for years. They carry brands you can't find anywhere else in the area, and they actually know what they're talking about.</p><div class="testimonial-author">James K.</div><div class="testimonial-role">Collector · Amarillo</div></div>
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="section" style="background: var(--bg-secondary);">
-  <div class="section-header reveal">
-    <div class="section-label">Questions</div>
-    <h2 class="section-title">Common Questions</h2>
-  </div>
-  
-  <div class="faq-list gsap-reveal">
-    <div class="faq-item">
-      <button class="faq-question">What brands do you carry?</button>
-      <div class="faq-answer"><p>We carry Benchmade, Case, William Henry, Buck, Kershaw, Gerber, CRKT, Cold Steel, and many more. If it's a brand we carry but we don't have it in stock, we can order it for you.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-question">Do you do custom engraving?</button>
-      <div class="faq-answer"><p>Yes! Custom engraving is available at both locations. We engrave knives, swords, tools, and more. Perfect for birthdays, military gifts, corporate awards, and wedding party gifts.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-question">Can I try a knife before buying?</button>
-      <div class="faq-answer"><p>Absolutely. We encourage it. Put it in your pocket, see how it feels, test the weight and grip. We want you to be confident in your choice before you buy.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-question">Can you order something you don't have in stock?</button>
-      <div class="faq-answer"><p>If it's a brand we carry, yes. Just let us know what you're looking for and we'll get it ordered. We can't source every knife in the world, but we'll always try.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-question">What are your hours?</button>
-      <div class="faq-answer"><p>We're open Monday through Saturday, 10 AM to 7 PM. Closed Sundays. Both locations keep the same hours.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-question">Do you sell fantasy swords and movie replicas?</button>
-      <div class="faq-answer"><p>Yes — we carry functional battle-ready swords, movie replicas (Kill Bill, and more), and fantasy pieces. These are real quality items, not cheap wall hangers.</p></div>
-    </div>
+<section class="faq-section">
+  <div class="kg-section-head reveal"><div class="section-label">Questions</div><h2 class="section-title">Before You Visit</h2></div>
+  <div class="faq-list">
+    <div class="faq-item"><button class="faq-question">Can I try a knife before buying?<span>+</span></button><div class="faq-answer"><p>Absolutely. We encourage it. Put it in your pocket, feel the weight, compare the grip, and make sure it fits the job.</p></div></div>
+    <div class="faq-item"><button class="faq-question">Do you offer custom engraving?<span>+</span></button><div class="faq-answer"><p>Yes. Custom engraving is available at both Amarillo and Lubbock locations.</p></div></div>
+    <div class="faq-item"><button class="faq-question">Can you order a knife if it is not in stock?<span>+</span></button><div class="faq-answer"><p>If it is from a brand we carry, we can usually special order it. Stop by or call us with what you are looking for.</p></div></div>
   </div>
 </section>
 
-<!-- Locations -->
-<section class="section" id="locations">
-  <div class="section-header reveal">
-    <div class="section-label">Visit Us</div>
-    <h2 class="section-title">Two Locations</h2>
-    <p class="section-subtitle">Same great selection and service at both stores. Come in, browse, and put a blade in your hand.</p>
-  </div>
-  
-  <div class="locations-grid gsap-stagger">
-    <div class="location-card stagger-item gsap-stagger-item">
-      <div class="location-card-map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3396.8!2d-101.9!3d35.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDEyJzAwLjAiTiAxMDHCsDU0JzAwLjAiVw!5e0!3m2!1sen!2sus!4v1" allowfullscreen loading="lazy"></iframe>
-      </div>
-      <div class="location-card-body">
-        <h3 class="location-card-name">Amarillo</h3>
-        <p class="location-card-address">Soncy Rd<br>Amarillo, TX</p>
-        <p class="location-card-hours"><strong>Hours:</strong> Mon–Sat 10AM–7PM · Closed Sun</p>
-        <div class="location-card-actions">
-          <a href="tel:+18065550100" class="btn btn-primary">Call Store</a>
-          <a href="https://maps.google.com/?q=Soncy+Rd+Amarillo+TX" target="_blank" class="btn btn-outline">Directions</a>
-        </div>
-      </div>
-    </div>
-    
-    <div class="location-card stagger-item gsap-stagger-item">
-      <div class="location-card-map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3396.8!2d-101.9!3d33.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDM2JzAwLjAiTiAxMDEKNTQnMDAuMCJX!5e0!3m2!1sen!2sus!4v1" allowfullscreen loading="lazy"></iframe>
-      </div>
-      <div class="location-card-body">
-        <h3 class="location-card-name">Lubbock</h3>
-        <p class="location-card-address">Milwaukee Ave<br>Lubbock, TX</p>
-        <p class="location-card-hours"><strong>Hours:</strong> Mon–Sat 10AM–7PM · Closed Sun</p>
-        <div class="location-card-actions">
-          <a href="tel:+18065550100" class="btn btn-primary">Call Store</a>
-          <a href="https://maps.google.com/?q=Milwaukee+Ave+Lubbock+TX" target="_blank" class="btn btn-outline">Directions</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Final CTA -->
-<section class="cta-banner">
-  <div class="cta-banner-bg" style="background-image: url('images/hero-engraving-cinematic.png')"></div>
-  <div class="cta-banner-content gsap-reveal">
-    <h2 class="cta-banner-title">Ready To Find<br><span style="color: var(--accent-red)">Your Blade?</span></h2>
-    <p class="cta-banner-subtitle">Come see us. We've been doing this for 20+ years, and we're just getting started.</p>
-    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-      <a href="tel:+18065550100" class="btn btn-phone">📞 Call Now</a>
-      <a href="contact.html" class="btn btn-outline">Send Message</a>
-    </div>
-  </div>
-</section>
-
-<!-- Footer -->
 <footer class="footer">
-  <div class="footer-grid">
-    <div>
-      <div><a href="index.html"><img src="assets/img/logo-official.png" alt="The Knife Guys" style="height:80px;width:auto;margin-bottom:1rem;"></a></div>
-      <p class="footer-desc">Premium knives, swords, and custom engraving. Over 20 years of helping you find the perfect blade. Two locations in the Texas Panhandle.</p>
-    </div>
-    <div>
-      <h4 class="footer-heading">Shop</h4>
-      <ul class="footer-links">
-        <li><a href="knives.html">Knives</a></li>
-        <li><a href="swords.html">Swords</a></li>
-        <li><a href="engraving.html">Engraving</a></li>
-        <li><a href="contact.html">Custom Orders</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4 class="footer-heading">Info</h4>
-      <ul class="footer-links">
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="#locations">Locations</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4 class="footer-heading">Hours</h4>
-      <ul class="footer-links">
-        <li>Mon–Sat: 10AM – 7PM</li>
-        <li>Sunday: Closed</li>
-      </ul>
-      <br>
-      <a href="tel:+18065550100" class="footer-phone">📞 Call Us</a>
-    </div>
+  <div class="footer-content">
+    <div><div><a href="index.html"><img src="assets/img/logo-official.png" alt="The Knife Guys" style="height:100px;width:auto;margin-bottom:1rem;"></a></div><p class="footer-desc">Premium knives, swords, collectibles, and custom engraving in Amarillo and Lubbock, Texas.</p></div>
+    <div><h4 class="footer-heading">Shop</h4><ul class="footer-links"><li><a href="knives.html">Knives</a></li><li><a href="swords.html">Swords</a></li><li><a href="engraving.html">Engraving</a></li></ul></div>
+    <div><h4 class="footer-heading">Company</h4><ul class="footer-links"><li><a href="about.html">About</a></li><li><a href="contact.html">Locations</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div><h4 class="footer-heading">Visit Us</h4><p class="footer-desc">Amarillo · Lubbock<br>Mon-Sat: 10AM-7PM<br><a href="tel:+18067834620" style="color: var(--accent-red);">(806) 783-4620</a></p></div>
   </div>
-  <div class="footer-bottom">
-    <div class="footer-copy">© 2025 The Knife Guys. All rights reserved.</div>
-    <div class="footer-phone">The Right Person, The Right Blade</div>
-  </div>
+  <div class="footer-bottom">© 2026 The Knife Guys. All rights reserved.</div>
 </footer>
-
-<!-- Floating CTA (mobile) -->
-<div class="floating-cta">
-  <a href="tel:+18065550100" class="btn btn-phone" style="flex:1; justify-content: center;">📞 Call</a>
-  <a href="contact.html" class="btn btn-primary" style="flex:1; justify-content: center;">Message</a>
-</div>
-
-<!-- Scripts -->
-<script src="js/content-loader.js"></script>
-<script src="js/main.js"></script>
-
 
 <!-- Sticky Mobile CTA -->
 <div class="mobile-cta-bar">
   <a href="tel:+18067834620" class="mobile-cta-call">📞 Call Now</a>
   <a href="contact.html" class="mobile-cta-contact">Get Directions</a>
 </div>
-<style>
-.mobile-cta-bar {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 9999;
-  background: #0a0a0a;
-  border-top: 2px solid #ff0000;
-  padding: 0.5rem;
-  gap: 0.5rem;
-}
-.mobile-cta-bar a {
-  flex: 1;
-  text-align: center;
-  padding: 0.75rem;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 4px;
-}
-.mobile-cta-call { background: #ff0000; color: #fff; }
-.mobile-cta-contact { background: transparent; color: #ff0000; border: 1px solid #ff0000; }
-@media (max-width: 768px) {
-  .mobile-cta-bar { display: flex; }
-  body { padding-bottom: 60px; }
-}
-</style>
+
+<script src="js/content-loader.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

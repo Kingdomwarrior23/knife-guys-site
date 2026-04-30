@@ -1,6 +1,6 @@
 {
   "hero": {
-    "badge": "Est. 2003 · Emerald, Texas",
+    "badge": "Est. 2003 · Amarillo and Lubbock, Texas",
     "title": "Put It In Your<br><span class=\"gold\">Pocket</span><br>See How It Feels",
     "subtitle": "Premium knives, swords, and custom engraving. Over 20 years of helping you find the perfect blade — for any purpose, any budget.",
     "ctaPrimary": { "text": "Browse Collection", "link": "knives.html" },
@@ -73,7 +73,7 @@
   "testimonials": [
     { "text": "Best knife store in the Panhandle, hands down. They took the time to show me exactly what I needed for elk hunting. Not just selling — educating.", "author": "Mike R.", "role": "Hunter · Amarillo" },
     { "text": "Got my husband's anniversary knife engraved here. They did an incredible job and had it ready faster than expected. The craftsmanship is unreal.", "author": "Sarah T.", "role": "Gift Buyer · Lubbock" },
-    { "text": "I've been coming here for years. They carry brands you can't find anywhere else in the area, and they actually know what they're talking about.", "author": "James K.", "role": "Collector · Emerald" }
+    { "text": "I've been coming here for years. They carry brands you can't find anywhere else in the area, and they actually know what they're talking about.", "author": "James K.", "role": "Collector · Amarillo" }
   ],
   "faq": [
     { "q": "What brands do you carry?", "a": "We carry Benchmade, Case, William Henry, Buck, Kershaw, Gerber, CRKT, Cold Steel, and many more. If it's a brand we carry but we don't have it in stock, we can order it for you." },
