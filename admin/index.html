@@ -1103,14 +1103,15 @@ async function dataUrlToBlob(dataUrl) {
   return await res.blob();
 }
 
+const UPLOAD_PROXY = "https://catbox-proxy.weathered-night-3d62.workers.dev";
 async function uploadToCatbox(blob, filename) {
   const form = new FormData();
-  form.append("reqtype", "fileupload");
   form.append("fileToUpload", blob, filename);
-  const resp = await fetch("https://catbox.moe/user/api.php", { method: "POST", body: form });
+  const resp = await fetch(UPLOAD_PROXY, { method: "POST", body: form });
   if (!resp.ok) throw new Error("Upload failed: " + resp.status);
-  const url = await resp.text();
-  return url.trim();
+  const data = await resp.json();
+  if (!data.success || !data.url) throw new Error(data.error || "Upload failed");
+  return data.url;
 }
 
 async function uploadAllToCatbox() {
