@@ -60,6 +60,34 @@
     }
     .save-indicator.show { opacity: 1; }
 
+    /* Catbox URL Modal */
+    .url-modal-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+      display: none; align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .url-modal-overlay.show { display: flex; }
+    .url-modal {
+      background: var(--bg-card); border: 1px solid var(--gold);
+      border-radius: var(--radius); padding: 24px;
+      max-width: 600px; width: 100%; max-height: 80vh;
+      overflow-y: auto;
+    }
+    .url-modal h3 {
+      font-family: "Bebas Neue", sans-serif; font-size: 20px;
+      color: var(--gold); margin-bottom: 16px; letter-spacing: 1px;
+    }
+    .url-modal textarea {
+      width: 100%; min-height: 120px; background: var(--bg-input);
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      color: var(--text); font-family: monospace; font-size: 13px;
+      padding: 12px; resize: vertical; margin-bottom: 12px;
+    }
+    .url-modal .btn-row {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+
     /* Mobile Nav Tabs */
     .nav-tabs {
       display: flex; overflow-x: auto; gap: 0;
@@ -417,7 +445,7 @@
 
       <div style="display:flex; align-items:center; justify-content:space-between; margin-top:16px; margin-bottom:8px;">
         <span style="font-size:13px; color:var(--text-dim);" id="mediaCount">0 files</span>
-        <button class="btn btn-sm btn-red" onclick="clearAllMedia()">Clear All</button>
+        <div style="display:flex;gap:8px;"><button class="btn btn-sm btn-green" onclick="uploadAllToCatbox()" id="catboxAllBtn">📤 Share All</button><button class="btn btn-sm btn-red" onclick="clearAllMedia()">Clear All</button></div>
       </div>
       
       <div class="media-grid" id="mediaGrid"></div>
@@ -1069,6 +1097,115 @@ async function init() {
 }
 
 init();
+// ===== CATBOX UPLOAD =====
+async function dataUrlToBlob(dataUrl) {
+  const res = await fetch(dataUrl);
+  return await res.blob();
+}
+
+async function uploadToCatbox(blob, filename) {
+  const form = new FormData();
+  form.append("reqtype", "fileupload");
+  form.append("fileToUpload", blob, filename);
+  const resp = await fetch("https://catbox.moe/user/api.php", { method: "POST", body: form });
+  if (!resp.ok) throw new Error("Upload failed: " + resp.status);
+  const url = await resp.text();
+  return url.trim();
+}
+
+async function uploadAllToCatbox() {
+  if (mediaFiles.length === 0) {
+    showToast("No files to upload", "error");
+    return;
+  }
+  const btn = document.getElementById("catboxAllBtn");
+  btn.disabled = true;
+  btn.textContent = "⏳ Uploading...";
+
+  const modal = document.getElementById("urlModal");
+  const status = document.getElementById("urlModalStatus");
+  const text = document.getElementById("urlModalText");
+  modal.classList.add("show");
+  text.value = "";
+  status.textContent = "Uploading " + mediaFiles.length + " files to Catbox...";
+
+  const urls = [];
+  let done = 0;
+  let failed = 0;
+
+  for (const m of mediaFiles) {
+    try {
+      status.textContent = "Uploading " + (done + 1) + " of " + mediaFiles.length + "...";
+      const blob = await dataUrlToBlob(m.data);
+      const url = await uploadToCatbox(blob, m.name);
+      urls.push(url);
+      done++;
+    } catch (err) {
+      failed++;
+      urls.push("# FAILED: " + m.name + " - " + err.message);
+      done++;
+    }
+    text.value = urls.join("\n");
+  }
+
+  status.textContent = done + " files processed" + (failed > 0 ? " (" + failed + " failed)" : " — all successful! ✓");
+  btn.disabled = false;
+  btn.textContent = "📤 Share All";
+}
+
+async function shareToCatbox(id) {
+  const m = mediaFiles.find(f => f.id === id);
+  if (!m) return;
+  showToast("Uploading to Catbox...", "info", 3000);
+  try {
+    const blob = await dataUrlToBlob(m.data);
+    const url = await uploadToCatbox(blob, m.name);
+    const modal = document.getElementById("urlModal");
+    const status = document.getElementById("urlModalStatus");
+    const text = document.getElementById("urlModalText");
+    modal.classList.add("show");
+    status.textContent = "✓ Uploaded: " + m.name;
+    text.value = url;
+  } catch (err) {
+    showToast("Upload failed: " + err.message, "error", 4000);
+  }
+}
+
+function copyUrls() {
+  const text = document.getElementById("urlModalText");
+  text.select();
+  text.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(text.value).then(() => {
+    showToast("✓ Copied to clipboard!");
+  }).catch(() => {
+    document.execCommand("copy");
+    showToast("✓ Copied!");
+  });
+}
+
+function sendUrlsToChat() {
+  const urls = document.getElementById("urlModalText").value.trim();
+  if (!urls) { showToast("No URLs to send", "error"); return; }
+  copyUrls();
+  showToast("URLs copied — paste them in your chat with Hermes!", "info", 4000);
+}
+
+function closeUrlModal() {
+  document.getElementById("urlModal").classList.remove("show");
+}
 </script>
+<!-- Catbox URL Modal -->
+<div class="url-modal-overlay" id="urlModal">
+  <div class="url-modal">
+    <h3>📤 CATBOX UPLOAD RESULTS</h3>
+    <p style="color:var(--text-dim);font-size:13px;margin-bottom:12px;" id="urlModalStatus">Uploading...</p>
+    <textarea id="urlModalText" readonly></textarea>
+    <div class="btn-row">
+      <button class="btn btn-sm primary" onclick="copyUrls()">📋 Copy All URLs</button>
+      <button class="btn btn-sm btn-green" onclick="sendUrlsToChat()">💬 Send to Chat</button>
+      <button class="btn btn-sm" onclick="closeUrlModal()">Close</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
