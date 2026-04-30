@@ -1,0 +1,91 @@
+{
+  "hero": {
+    "badge": "Est. 2003 · Emerald, Texas",
+    "title": "Put It In Your<br><span class=\"gold\">Pocket</span><br>See How It Feels",
+    "subtitle": "Premium knives, swords, and custom engraving. Over 20 years of helping you find the perfect blade — for any purpose, any budget.",
+    "ctaPrimary": { "text": "Browse Collection", "link": "knives.html" },
+    "ctaSecondary": { "text": "Visit Us", "link": "contact.html" },
+    "backgroundType": "frames",
+    "videoSrc": "",
+    "posterImage": ""
+  },
+  "brandStrip": ["BENCHMADE", "CASE", "WILLIAM HENRY", "BUCK", "KERSHAW", "GERBER", "CRKT", "COLD STEEL"],
+  "about": {
+    "label": "Our Story",
+    "title": "More Than A Store",
+    "subtitle": "For over 20 years, we've been the Panhandle's destination for premium blades. Whether you need a hunting companion, a kitchen workhorse, or a collector's piece — we have it, and we'll show you exactly how it works.",
+    "stats": [
+      { "target": 20, "suffix": "+", "label": "Years in Business" },
+      { "target": 1000, "suffix": "+", "label": "Blades in Stock" },
+      { "target": 50, "suffix": "+", "label": "Top Brands" },
+      { "target": 2, "suffix": "", "label": "Store Locations" }
+    ]
+  },
+  "products": [
+    {
+      "label": "Premium Collection",
+      "title": "Damascus Steel",
+      "desc": "Hand-forged Damascus blades with unique patterns. Every piece is one of a kind — as strong as it is beautiful.",
+      "price": "From $89",
+      "cta": "Explore →",
+      "link": "knives.html",
+      "image": "images/hero-knives-cinematic.png"
+    },
+    {
+      "label": "Kitchen",
+      "title": "Chef's Collection",
+      "desc": "Professional-grade kitchen knives for every culinary task. From chef's knives to cleavers — the brands chefs trust.",
+      "price": "From $35",
+      "cta": "Explore →",
+      "link": "knives.html",
+      "image": "images/hero-kitchen-cinematic.png"
+    },
+    {
+      "label": "Battle Ready",
+      "title": "Swords & Blades",
+      "desc": "Functional battle-ready swords, movie replicas, and collector pieces. Kill Bill, historical, and fantasy blades.",
+      "price": "From $75",
+      "cta": "Explore →",
+      "link": "swords.html",
+      "image": "images/hero-swords-cinematic.png"
+    },
+    {
+      "label": "Custom",
+      "title": "Personal Engraving",
+      "desc": "Make it truly yours. Custom engraving on knives, swords, and tools. Perfect for gifts, milestones, and keepsakes.",
+      "price": "Starting at $15",
+      "cta": "Learn More →",
+      "link": "engraving.html",
+      "image": "images/hero-engraving-cinematic.png"
+    }
+  ],
+  "whyUs": {
+    "label": "The Difference",
+    "title": "Why The Knife Guys",
+    "subtitle": "You can buy a knife anywhere online. But you can't feel it in your hand, test the weight, or ask an expert — until now.",
+    "steps": [
+      { "title": "Try Before You Buy", "desc": "Put it in your pocket, see how it feels. Walk around the store. We don't rush you — the right knife chooses you." },
+      { "title": "Expert Guidance", "desc": "20+ years of hands-on knowledge. We'll show you the differences in function, build, and metal — not just the price tag." },
+      { "title": "Custom Orders", "desc": "Don't see what you need? If it's a brand we carry, we can order it. Special requests welcome — just ask." },
+      { "title": "On-Site Engraving", "desc": "Custom engraving at both locations. Birthdays, military, corporate gifts — make any blade a one-of-a-kind piece." }
+    ]
+  },
+  "testimonials": [
+    { "text": "Best knife store in the Panhandle, hands down. They took the time to show me exactly what I needed for elk hunting. Not just selling — educating.", "author": "Mike R.", "role": "Hunter · Amarillo" },
+    { "text": "Got my husband's anniversary knife engraved here. They did an incredible job and had it ready faster than expected. The craftsmanship is unreal.", "author": "Sarah T.", "role": "Gift Buyer · Lubbock" },
+    { "text": "I've been coming here for years. They carry brands you can't find anywhere else in the area, and they actually know what they're talking about.", "author": "James K.", "role": "Collector · Emerald" }
+  ],
+  "faq": [
+    { "q": "What brands do you carry?", "a": "We carry Benchmade, Case, William Henry, Buck, Kershaw, Gerber, CRKT, Cold Steel, and many more. If it's a brand we carry but we don't have it in stock, we can order it for you." },
+    { "q": "Do you do custom engraving?", "a": "Yes! Custom engraving is available at both locations. We engrave knives, swords, tools, and more. Perfect for birthdays, military gifts, corporate awards, and wedding party gifts." },
+    { "q": "Can I try a knife before buying?", "a": "Absolutely. We encourage it. Put it in your pocket, see how it feels, test the weight and grip. We want you to be confident in your choice before you buy." },
+    { "q": "Can you order something you don't have in stock?", "a": "If it's a brand we carry, yes. Just let us know what you're looking for and we'll get it ordered. We can't source every knife in the world, but we'll always try." },
+    { "q": "What are your hours?", "a": "We're open Monday through Saturday, 10 AM to 7 PM. Closed Sundays. Both locations keep the same hours." },
+    { "q": "Do you sell fantasy swords and movie replicas?", "a": "Yes — we carry functional battle-ready swords, movie replicas (Kill Bill, and more), and fantasy pieces. These are real quality items, not cheap wall hangers." }
+  ],
+  "locations": [
+    { "name": "Amarillo", "address": "Soncy Rd<br>Amarillo, TX", "hours": "Mon–Sat 10AM–7PM · Closed Sun", "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3396.8!2d-101.9!3d35.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDEyJzAwLjAiTiAxMDHCsDU0JzAwLjAiVw!5e0!3m2!1sen!2sus!4v1" },
+    { "name": "Lubbock", "address": "Milwaukee Ave<br>Lubbock, TX", "hours": "Mon–Sat 10AM–7PM · Closed Sun", "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3396.8!2d-101.9!3d33.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDM2JzAwLjAiTiAxMDEKNTQnMDAuMCJX!5e0!3m2!1sen!2sus!4v1" }
+  ],
+  "media": []
+}
